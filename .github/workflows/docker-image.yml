@@ -23,5 +23,5 @@ jobs:
           password: '${{secrets.GITHUB_TOKEN}}'
       - name: Build Inventory Image
         run: |
-          docker build . --tag ghcr.io/marcgauch/store:latest
-          docker push ghcr.io/marcgauch/store:latest
+          docker build . --tag ghcr.io/marcgauch/marcgauch/dashboard-design:latest
+          docker push ghcr.io/marcgauch/dashboard-design:latest
