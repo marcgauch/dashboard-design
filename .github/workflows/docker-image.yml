@@ -1,35 +1,27 @@
-name: Docker Image CI
+# Copied from https://dev.to/willvelida/pushing-container-images-to-github-container-registry-with-github-actions-1m6b
 
-on:
+name: Deploy Images to GHCR
+'on':
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    branches:
+      - main
+  workflow_dispatch: null
 jobs:
-
-  build:
-
+  push-store-image:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./Store
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
-  docker_publish:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      # https://github.com/marketplace/actions/push-to-ghcr
-      - name: Build and publish a Docker image for ${{ github.repository }}
-        uses: macbre/push-to-ghcr@master
+      - name: Checkout GitHub Action
+        uses: actions/checkout@main
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
-          image_name: ${{ github.repository }}  # it will be lowercased internally
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # optionally push to the Docker Hub (docker.io)
-          # docker_io_token: ${{ secrets.DOCKER_IO_ACCESS_TOKEN }}  # see https://hub.docker.com/settings/security
-          # customize the username to be used when pushing to the Docker Hub
-          # docker_io_user: foobar  # see https://github.com/macbre/push-to-ghcr/issues/14
+          registry: ghcr.io
+          username: '${{github.actor}}'
+          password: '${{secrets.GITHUB_TOKEN}}'
+      - name: Build Inventory Image
+        run: |
+          docker build . --tag ghcr.io/marcgauch/store:latest
+          docker push ghcr.io/marcgauch/store:latest
