@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="toggleExpand" class="d-flex w-100">
+    <div @click="toggleExpand" @click.right.prevent="analyze" class="d-flex w-100">
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
       <div
@@ -47,6 +47,10 @@ const isDirectory = props.item.isDirectory();
 const toggleExpand = () => {
   if (!isDirectory) return;
   expanded.value = !expanded.value;
+};
+
+const analyze = () => {
+  console.log(`double click on ${props.item.name}`);
 };
 </script>
 

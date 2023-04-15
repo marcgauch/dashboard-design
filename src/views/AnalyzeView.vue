@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import TreeContainer from '@/components/analyzer/TreeContainer.vue';
+import TreeContainer from '@/components/analyzer/tree/TreeContainer.vue';
 import { useTreeStore } from '@/stores/treeStore';
 
 const treeStore = useTreeStore();
