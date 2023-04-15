@@ -47,7 +47,6 @@ export class ReportFileParser {
   }
 
   private static convertDirectory(dir: rawDirectory, parentPath: string): Directory {
-    //const combinedPath = parentPath ? `${parentPath}${dir.name}/` : dir.name;
     const directory = new Directory(dir.name, dir.size, parentPath);
     (dir.contents || []).forEach((e) => {
       switch (e.type) {
