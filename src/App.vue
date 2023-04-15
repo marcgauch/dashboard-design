@@ -16,6 +16,11 @@ import TheNavigation from '@/components/TheNavigation.vue';
 html,
 body {
   width: 100vw;
+  height: 90vh;
   margin: 0;
+  overflow: hidden;
+}
+#app {
+  height: 100vh;
 }
 </style>

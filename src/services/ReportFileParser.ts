@@ -29,11 +29,9 @@ export class ReportFileParser {
     } catch {
       throw 'Not a valid JSON';
     }
-    const reportFile = new ReportFile(fileName);
-    reportFile.push(this.convertDirectory(obj.at(0)));
-    reportFile.push(this.convertReport(obj.at(1)));
-
-    return reportFile;
+    const directory = this.convertDirectory(obj.at(0));
+    const report = this.convertReport(obj.at(1));
+    return new ReportFile(fileName, directory, report);
   }
 
   private static convertReport(r: rawReport): Report {

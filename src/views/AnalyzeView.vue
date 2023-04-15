@@ -1,8 +1,16 @@
 <template>
-  <pre>{{ treeStore.reportFile }}</pre>
+  <el-container style="height: 100%">
+    <el-aside width="75vw">
+      <TreeContainer></TreeContainer>
+    </el-aside>
+    <el-main>
+      <pre>{{ treeStore.reportFile }}</pre>
+    </el-main>
+  </el-container>
 </template>
 
 <script setup lang="ts">
+import TreeContainer from '@/components/analyzer/TreeContainer.vue';
 import { useTreeStore } from '@/stores/treeStore';
 
 const treeStore = useTreeStore();
