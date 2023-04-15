@@ -14,6 +14,6 @@
       <el-menu-item index="/create/linux">Linux</el-menu-item>
     </el-sub-menu>
     <el-menu-item index="/upload">Upload</el-menu-item>
-    <el-menu-item index="/view">View</el-menu-item>
+    <el-menu-item index="/analyze">Analyze</el-menu-item>
   </el-menu>
 </template>
