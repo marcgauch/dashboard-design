@@ -32,6 +32,8 @@ import { ref } from 'vue';
 
 import { useSettingsStore } from '@/stores/settingsStore';
 
+import ContextMenu from '@imengyu/vue3-context-menu';
+
 const settings = useSettingsStore();
 
 const props = defineProps({
@@ -49,8 +51,28 @@ const toggleExpand = () => {
   expanded.value = !expanded.value;
 };
 
-const analyze = () => {
+const analyze = (e: MouseEvent) => {
   console.log(`double click on ${props.item.name}`);
+  if (!isDirectory) return;
+  // https://github.com/imengyu/vue3-context-menu
+  e.preventDefault();
+  //show your menu
+  ContextMenu.showContextMenu({
+    x: e.x,
+    y: e.y,
+    items: [
+      {
+        label: 'A menu item',
+        onClick: () => {
+          alert('You click a menu item');
+        },
+      },
+      {
+        label: 'A submenu',
+        children: [{ label: 'Item1' }, { label: 'Item2' }, { label: 'Item3' }],
+      },
+    ],
+  });
 };
 </script>
 

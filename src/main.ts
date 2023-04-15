@@ -10,10 +10,14 @@ import 'element-plus/dist/index.css';
 
 import '@/styles/index.scss';
 
+import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css';
+import ContextMenu from '@imengyu/vue3-context-menu';
+
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
 app.use(ElementPlus);
+app.use(ContextMenu);
 
 app.mount('#app');
