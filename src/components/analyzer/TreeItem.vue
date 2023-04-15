@@ -5,7 +5,7 @@
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
       <div
         class="d-flex w-100"
-        :style="`background: linear-gradient(to right, #ff0000 ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
+        :style="`background: linear-gradient(to right, ${settings.TREE_BAR_COLOR} ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
       >
         <TreeItemSize :size="item.totalSize" class="tree-item-size" />
         <div class="name">{{ item.name }}</div>
@@ -17,7 +17,7 @@
         :item="dir"
         :key="dir.name"
         :indentationLevel="indentationLevel + 1"
-        :percentageOfParent="10"
+        :percentageOfParent="(dir.totalSize / item.totalSize) * 100"
       />
     </div>
   </div>
