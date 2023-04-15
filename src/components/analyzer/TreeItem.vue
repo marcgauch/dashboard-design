@@ -10,6 +10,7 @@
       <TreeItemIcon :icon="item.icon" class="tree-item-icon" />
       <TreeItemSize :size="item.size" class="tree-item-size" />
       <div class="name">{{ item.name }}</div>
+      <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
     </div>
     <div v-if="expanded">
       <TreeItem
