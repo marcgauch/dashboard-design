@@ -30,6 +30,10 @@ import TreeItemIcon from './TreeItemIcon.vue';
 import TreeItemSize from './TreeItemSize.vue';
 import { ref } from 'vue';
 
+import { useSettingsStore } from '@/stores/settingsStore';
+
+const settings = useSettingsStore();
+
 const props = defineProps({
   item: { type: Item, required: true },
   indentationLevel: { type: Number, required: true },
@@ -37,7 +41,7 @@ const props = defineProps({
   bar: Number,
 });
 
-const expanded = ref(props.indentationLevel < 1);
+const expanded = ref(props.indentationLevel <= settings.TREE_EXPAND_DEFAULT_LEVEL);
 const isDirectory = props.item.isDirectory();
 
 const toggleExpand = () => {
