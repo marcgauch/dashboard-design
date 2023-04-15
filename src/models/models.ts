@@ -9,7 +9,11 @@ class Item {
   constructor(readonly name: string, readonly size: number, readonly type: ItemType) {}
 }
 
-export class ReportFile extends Array<Directory | Report> {}
+export class ReportFile extends Array<Directory | Report> {
+  constructor(readonly name: string) {
+    super();
+  }
+}
 
 export class Directory extends Item {
   readonly contents: Item[];

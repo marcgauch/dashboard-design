@@ -21,7 +21,7 @@ interface rawLink extends rawItem {
 interface rawFile extends rawItem {}
 
 export class ReportFileParser {
-  static parse(input: string): ReportFile {
+  static parse(input: string, fileName: string): ReportFile {
     if (!input) throw 'No input';
     let obj;
     try {
@@ -29,7 +29,7 @@ export class ReportFileParser {
     } catch {
       throw 'Not a valid JSON';
     }
-    const reportFile = new ReportFile();
+    const reportFile = new ReportFile(fileName);
     reportFile.push(this.convertDirectory(obj.at(0)));
     reportFile.push(this.convertReport(obj.at(1)));
 

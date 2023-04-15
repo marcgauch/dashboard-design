@@ -23,7 +23,7 @@ const upload = (file: any) => {
   FR.onload = (e) => {
     const str = e?.target?.result?.toString();
     if (!str) return;
-    console.dir(ReportFileParser.parse(str));
+    console.dir(ReportFileParser.parse(str, name));
   };
 
   FR.readAsText(raw);
