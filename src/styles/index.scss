@@ -16,3 +16,15 @@ code {
   background-color: var(--ep-color-primary-light-9);
   color: var(--ep-color-primary);
 }
+
+.d-flex {
+  display: flex;
+}
+
+.bordered {
+  border: 1px solid black;
+}
+
+.w-100 {
+  width: 100%;
+}

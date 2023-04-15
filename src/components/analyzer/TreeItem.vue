@@ -1,16 +1,15 @@
 <template>
   <div>
-    <div
-      @click="toggleExpand"
-      class="tree-item"
-      :style="`  background: linear-gradient(to right, #ff0000 ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
-    >
+    <div @click="toggleExpand" class="d-flex w-100">
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
-      {{ indentationLevel }}
-      <TreeItemIcon :icon="item.icon" class="tree-item-icon" />
-      <TreeItemSize :size="item.size" class="tree-item-size" />
-      <div class="name">{{ item.name }}</div>
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
+      <div
+        class="d-flex w-100"
+        :style="`background: linear-gradient(to right, #ff0000 ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
+      >
+        <TreeItemSize :size="item.size" class="tree-item-size" />
+        <div class="name">{{ item.name }}</div>
+      </div>
     </div>
     <div v-if="expanded">
       <TreeItem
@@ -46,22 +45,18 @@ const expanded = ref(props.indentationLevel <= settings.TREE_EXPAND_DEFAULT_LEVE
 const isDirectory = props.item.isDirectory();
 
 const toggleExpand = () => {
-  console.log('TOGGLE');
   if (!isDirectory) return;
   expanded.value = !expanded.value;
 };
 </script>
 
 <style scoped>
-.tree-item {
-  display: flex;
-  border: 1px solid black;
-}
 .tree-item-icon {
+  margin-right: 0.55rem;
 }
 .tree-item-size {
-  margin-left: 1.1rem;
   width: 5rem;
+  margin-left: 0.55rem; /*this and the one from .tree-item-size will determine where the colored bar starts */
 }
 .tree-item-name {
 }

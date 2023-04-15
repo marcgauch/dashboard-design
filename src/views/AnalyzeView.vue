@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%">
-    <el-aside width="75vw">
+    <el-aside width="25vw">
       <TreeContainer></TreeContainer>
     </el-aside>
     <el-main>
