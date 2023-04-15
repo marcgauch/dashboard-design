@@ -20,6 +20,7 @@ export class Item {
   constructor(
     readonly name: string,
     readonly size: number,
+    readonly fullPath: string,
     readonly type: ItemType,
     readonly icon: ItemTypeIcon
   ) {
@@ -35,18 +36,22 @@ export class ReportFile {
 
   constructor(name?: string, directory?: Directory, report?: Report) {
     this.name = name || 'null';
-    this.directory = directory || new Directory('null', -1);
+    this.directory = directory || new Directory('null', -1, 'null');
     this.report = report || new Report(-1, -1);
   }
 }
 
 export class Directory extends Item {
-  readonly contents: Item[];
-  constructor(name: string, size: number) {
-    super(name, size, ItemType.DIRECTORY, ItemTypeIcon.FOLDER);
-    this.contents = [];
+  readonly contents = [] as Item[];
+  constructor(name: string, size: number, fullPath: string) {
+    super(
+      name,
+      size,
+      fullPath ? `${fullPath}${name}/` : name,
+      ItemType.DIRECTORY,
+      ItemTypeIcon.FOLDER
+    );
   }
-
   public addItem(item: Item) {
     this.contents.push(item);
     this.totalSize += item.totalSize;
@@ -54,8 +59,14 @@ export class Directory extends Item {
 }
 
 export class File extends Item {
-  constructor(name: string, size: number) {
-    super(name, size, ItemType.FILE, File.determineIcon(name));
+  constructor(name: string, size: number, fullPath: string) {
+    super(
+      name,
+      size,
+      fullPath ? `${fullPath}${name}` : name,
+      ItemType.FILE,
+      File.determineIcon(name)
+    );
   }
   static determineIcon = (name: string) => {
     switch (name.split('.').at(-1)) {
@@ -75,8 +86,8 @@ export class File extends Item {
 export class Link extends Item {
   readonly target: string;
 
-  constructor(name: string, size: number, target: string) {
-    super(name, size, ItemType.LINK, ItemTypeIcon.LINK);
+  constructor(name: string, size: number, fullPath: string, target: string) {
+    super(name, size, fullPath ? `${fullPath}${name}/` : name, ItemType.LINK, ItemTypeIcon.LINK);
     this.target = target;
   }
 }
