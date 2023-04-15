@@ -1,5 +1,5 @@
 <template>
-  <el-tabs type="border-card" v-model="selectedTab">
+  <el-tabs type="border-card" v-model="selectedTab" @tab-click="updateTab">
     <el-tab-pane label="Windows" name="windows"><el-text tag="i">todo</el-text></el-tab-pane>
     <el-tab-pane label="Mac" name="mac"><el-text tag="i">todo</el-text></el-tab-pane>
     <el-tab-pane label="Linux" name="linux">
@@ -9,20 +9,29 @@
 </template>
 
 <script setup lang="ts">
+import type { TabsPaneContext } from 'element-plus';
 import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
-const selectedTab = ref(route.params.os.toString());
+const router = useRouter();
+
+const allowedRoutes = ['windows', 'mac', 'linux'];
+
+const initalRoute = route.params.os.toString();
+const selectedTab = ref(allowedRoutes.includes(initalRoute) ? initalRoute : 'windows');
 
 watch(
   () => route.params.os,
   (newOs) => {
-    if (typeof newOs === 'string') {
-      selectedTab.value = newOs;
-    } else {
-      selectedTab.value = newOs[0];
+    if (Array.isArray(newOs)) {
+      newOs = newOs[0];
     }
+    selectedTab.value = allowedRoutes.includes(newOs) ? newOs : 'windows';
   }
 );
+
+const updateTab = ({ paneName }: TabsPaneContext) => {
+  router.replace({ path: `/create/${paneName}` });
+};
 </script>
