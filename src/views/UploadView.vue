@@ -15,6 +15,9 @@
 <script setup lang="ts">
 import { UploadFilled } from '@element-plus/icons-vue';
 import { ReportFileParser } from '@/services/ReportFileParser';
+import { useTreeStore } from '@/stores/treeStore';
+
+const treeStore = useTreeStore();
 
 const upload = (file: any) => {
   //console.log(file);
@@ -23,7 +26,7 @@ const upload = (file: any) => {
   FR.onload = (e) => {
     const str = e?.target?.result?.toString();
     if (!str) return;
-    console.dir(ReportFileParser.parse(str, name));
+    treeStore.reportFile = ReportFileParser.parse(str, name);
   };
 
   FR.readAsText(raw);

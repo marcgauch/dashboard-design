@@ -29,37 +29,35 @@ export class ReportFileParser {
     } catch {
       throw 'Not a valid JSON';
     }
-    const reportFile = new ReportFile(fileName);
-    reportFile.push(this.convertDirectory(obj.at(0)));
-    reportFile.push(this.convertReport(obj.at(1)));
-
-    return reportFile;
+    const directory = this.convertDirectory(obj.at(0), '');
+    const report = this.convertReport(obj.at(1));
+    return new ReportFile(fileName, directory, report);
   }
 
   private static convertReport(r: rawReport): Report {
     return new Report(r.directories, r.files);
   }
 
-  private static convertLink(l: rawLink): Link {
-    return new Link(l.name, l.size, l.target);
+  private static convertLink(l: rawLink, parentPath: string): Link {
+    return new Link(l.name, l.size, parentPath, l.target);
   }
 
-  private static convertFile(f: rawFile): File {
-    return new File(f.name, f.size);
+  private static convertFile(f: rawFile, parentPath: string): File {
+    return new File(f.name, f.size, parentPath);
   }
 
-  private static convertDirectory(dir: rawDirectory): Directory {
-    const directory = new Directory(dir.name, dir.size);
+  private static convertDirectory(dir: rawDirectory, parentPath: string): Directory {
+    const directory = new Directory(dir.name, dir.size, parentPath);
     (dir.contents || []).forEach((e) => {
       switch (e.type) {
         case 'directory':
-          directory.contents.push(this.convertDirectory(<rawDirectory>e));
+          directory.addItem(this.convertDirectory(<rawDirectory>e, directory.fullPath));
           break;
         case 'file':
-          directory.contents.push(this.convertFile(<rawFile>e));
+          directory.addItem(this.convertFile(<rawFile>e, directory.fullPath));
           break;
         case 'link':
-          directory.contents.push(this.convertLink(<rawLink>e));
+          directory.addItem(this.convertLink(<rawLink>e, directory.fullPath));
           break;
         default:
           console.log(`UNKNOWN TYPE ${e.type}`);

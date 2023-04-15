@@ -1,9 +1,5 @@
 <template>
   <TheNavigation />
-  <header>
-    <div></div>
-  </header>
-
   <RouterView />
 </template>
 
@@ -16,6 +12,11 @@ import TheNavigation from '@/components/TheNavigation.vue';
 html,
 body {
   width: 100vw;
+  height: 100vh;
   margin: 0;
+  overflow: hidden;
+}
+#app {
+  height: 100vh;
 }
 </style>
