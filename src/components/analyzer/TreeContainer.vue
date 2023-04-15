@@ -1,7 +1,6 @@
 <template>
   <el-card class="fill">
     <TreeItem :item="treeStore.root" :indentation-level="0" :percentage-of-parent="100" />
-    <pre>{{ treeStore.root }}</pre>
   </el-card>
 </template>
 

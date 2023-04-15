@@ -1,15 +1,17 @@
 <template>
   <div>
     <div
+      @click="toggleExpand"
       class="tree-item"
       :style="`  background: linear-gradient(to right, #ff0000 ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
     >
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
+      {{ indentationLevel }}
       <TreeItemIcon :icon="item.icon" class="tree-item-icon" />
       <TreeItemSize :size="item.size" class="tree-item-size" />
       <div class="name">{{ item.name }}</div>
     </div>
-    <div v-if="item.isDirectory()">
+    <div v-if="expanded">
       <TreeItem
         v-for="dir in (item as Directory).contents"
         :item="dir"
@@ -22,16 +24,27 @@
 </template>
 
 <script setup lang="ts">
-import type { Item, Directory } from '@/models/models';
+import { Item, Directory } from '@/models/models';
 import TreeItem from './TreeItem.vue';
 import TreeItemIcon from './TreeItemIcon.vue';
 import TreeItemSize from './TreeItemSize.vue';
+import { ref } from 'vue';
 
-defineProps<{
-  item: Item;
-  indentationLevel: number;
-  percentageOfParent: number;
-}>();
+const props = defineProps({
+  item: { type: Item, required: true },
+  indentationLevel: { type: Number, required: true },
+  percentageOfParent: { type: Number, required: true },
+  bar: Number,
+});
+
+const expanded = ref(props.indentationLevel < 1);
+const isDirectory = props.item.isDirectory();
+
+const toggleExpand = () => {
+  console.log('TOGGLE');
+  if (!isDirectory) return;
+  expanded.value = !expanded.value;
+};
 </script>
 
 <style scoped>
