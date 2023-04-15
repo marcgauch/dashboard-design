@@ -1,7 +1,12 @@
 <template>
-  <el-card class="fill">
-    <TreeItem :item="treeStore.root" :indentation-level="0" :percentage-of-parent="100" />
-  </el-card>
+  <div class="fill">
+    <TreeItem
+      style="border: 1px solid orange"
+      :item="treeStore.root"
+      :indentation-level="0"
+      :percentage-of-parent="100"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -13,8 +18,7 @@ const treeStore = useTreeStore();
 
 <style scoped>
 .fill {
-  width: 100%;
-  height: 99%;
+  margin: 1.1rem;
   overflow-y: scroll;
 }
 </style>

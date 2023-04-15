@@ -1,9 +1,9 @@
 <template>
-  <el-container style="height: 100%">
+  <el-container style="max-height: calc(100vh - 59px)">
     <el-aside width="25vw">
       <TreeContainer></TreeContainer>
     </el-aside>
-    <el-main>
+    <el-main style="border: 1px solid orchid">
       <pre>{{ treeStore.reportFile }}</pre>
     </el-main>
   </el-container>
