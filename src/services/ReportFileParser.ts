@@ -51,13 +51,13 @@ export class ReportFileParser {
     (dir.contents || []).forEach((e) => {
       switch (e.type) {
         case 'directory':
-          directory.contents.push(this.convertDirectory(<rawDirectory>e));
+          directory.addItem(this.convertDirectory(<rawDirectory>e));
           break;
         case 'file':
-          directory.contents.push(this.convertFile(<rawFile>e));
+          directory.addItem(this.convertFile(<rawFile>e));
           break;
         case 'link':
-          directory.contents.push(this.convertLink(<rawLink>e));
+          directory.addItem(this.convertLink(<rawLink>e));
           break;
         default:
           console.log(`UNKNOWN TYPE ${e.type}`);

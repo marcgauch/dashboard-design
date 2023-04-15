@@ -16,12 +16,15 @@ export enum ItemTypeIcon {
 }
 
 export class Item {
+  totalSize: number;
   constructor(
     readonly name: string,
     readonly size: number,
     readonly type: ItemType,
     readonly icon: ItemTypeIcon
-  ) {}
+  ) {
+    this.totalSize = size;
+  }
   isDirectory = () => this.type === ItemType.DIRECTORY;
 }
 
@@ -39,7 +42,6 @@ export class ReportFile {
 
 export class Directory extends Item {
   readonly contents: Item[];
-
   constructor(name: string, size: number) {
     super(name, size, ItemType.DIRECTORY, ItemTypeIcon.FOLDER);
     this.contents = [];
@@ -47,6 +49,7 @@ export class Directory extends Item {
 
   public addItem(item: Item) {
     this.contents.push(item);
+    this.totalSize += item.totalSize;
   }
 }
 

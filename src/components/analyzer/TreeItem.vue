@@ -7,7 +7,7 @@
         class="d-flex w-100"
         :style="`background: linear-gradient(to right, #ff0000 ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
       >
-        <TreeItemSize :size="item.size" class="tree-item-size" />
+        <TreeItemSize :size="item.totalSize" class="tree-item-size" />
         <div class="name">{{ item.name }}</div>
       </div>
     </div>
