@@ -3,7 +3,7 @@
     <el-aside width="25vw">
       <TreeContainer></TreeContainer>
     </el-aside>
-    <el-main style="border: 1px solid orchid">
+    <el-main style="border-left: 5px solid orchid">
       <pre>{{ treeStore.reportFile }}</pre>
     </el-main>
   </el-container>
