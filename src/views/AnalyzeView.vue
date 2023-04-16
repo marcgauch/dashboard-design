@@ -12,7 +12,4 @@
 <script setup lang="ts">
 import TreeContainer from '@/components/analyzer/tree/TreeContainer.vue';
 import BarChart from '@/components/analyzer/charts/BarChart.vue';
-import { useTreeStore } from '@/stores/treeStore';
-
-const treeStore = useTreeStore();
 </script>

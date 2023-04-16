@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { Directory, File } from '@/models/models';
 import { ItemType } from '@/models/models';
@@ -18,7 +18,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
 // UTIL
 
 const sortFilesBySize = (rootDirectory: Directory) => {
-  let files = [] as File[];
+  const files = [] as File[];
   getAllFilesRecursive(rootDirectory, files);
   files.sort((a, b) => b.size - a.size);
   return files;
