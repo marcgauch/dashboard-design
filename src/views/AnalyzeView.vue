@@ -4,13 +4,14 @@
       <TreeContainer></TreeContainer>
     </el-aside>
     <el-main style="border-left: 5px solid orchid">
-      <pre>{{ treeStore.reportFile }}</pre>
+      <BarChart />
     </el-main>
   </el-container>
 </template>
 
 <script setup lang="ts">
 import TreeContainer from '@/components/analyzer/tree/TreeContainer.vue';
+import BarChart from '@/components/analyzer/charts/BarChart.vue';
 import { useTreeStore } from '@/stores/treeStore';
 
 const treeStore = useTreeStore();
