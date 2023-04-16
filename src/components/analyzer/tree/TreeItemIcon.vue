@@ -1,25 +1,33 @@
 <template>
   <el-icon>
     <FolderOpened v-if="expanded" />
-    <Picture v-else-if="icon === ItemTypeIcon.PICTURE" />
-    <Folder v-else-if="icon === ItemTypeIcon.FOLDER" />
-    <Link v-else-if="icon === ItemTypeIcon.LINK" />
-    <Headset v-else-if="icon === ItemTypeIcon.MUSIC" />
+    <Coin v-else-if="icon === ItemTypeIcon.DISK_IMAGE" />
+    <Cpu v-else-if="icon === ItemTypeIcon.BINARY" />
+    <Document v-else-if="icon === ItemTypeIcon.DOCUMENT" />
     <Film v-else-if="icon === ItemTypeIcon.VIDEO" />
-    <Document v-else />
+    <Folder v-else-if="icon === ItemTypeIcon.FOLDER" />
+    <Headset v-else-if="icon === ItemTypeIcon.MUSIC" />
+    <Link v-else-if="icon === ItemTypeIcon.LINK" />
+    <Picture v-else-if="icon === ItemTypeIcon.PICTURE" />
+    <TakeawayBox v-else-if="icon === ItemTypeIcon.ARCHIVE" />
+    <Flag v-else />
   </el-icon>
 </template>
 
 <script setup lang="ts">
 import { ItemTypeIcon } from '@/models/models';
 import {
+  Coin,
+  Cpu,
   Document,
   Film,
+  Flag,
   Folder,
   FolderOpened,
   Headset,
   Link,
   Picture,
+  TakeawayBox,
 } from '@element-plus/icons-vue';
 
 defineProps<{

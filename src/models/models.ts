@@ -6,12 +6,16 @@ export enum ItemType {
 }
 
 export enum ItemTypeIcon {
-  VIDEO,
+  ARCHIVE,
+  BINARY,
+  DISK_IMAGE,
+  DOCUMENT,
   FOLDER,
   LINK,
   MUSIC,
   PICTURE,
   UNKNOWN,
+  VIDEO,
 }
 
 export class Item {
@@ -68,12 +72,48 @@ export class File extends Item {
     );
   }
   static determineIcon = (name: string) => {
-    switch (name.split('.').at(-1)) {
-      case 'jpg':
-      case 'jpeg':
-        return ItemTypeIcon.PICTURE;
+    switch (name.split('.').at(-1)?.toLowerCase()) {
+      case 'gz':
+      case 'tar':
+      case 'zip':
+        return ItemTypeIcon.ARCHIVE;
+      case 'apk':
+      case 'bin':
+      case 'exe':
+      case 'ps1':
+      case 'sh':
+        return ItemTypeIcon.BINARY;
+      case 'iso':
+      case 'vdi':
+        return ItemTypeIcon.DISK_IMAGE;
+      case 'cfg':
+      case 'doc':
+      case 'docx':
+      case 'kdbx':
+      case 'log':
+      case 'md':
+      case 'ods':
+      case 'pdf':
+      case 'rdg':
+      case 'txt':
+      case 'url':
+      case 'xls':
+      case 'xlsx':
+        return ItemTypeIcon.DOCUMENT;
+      /* NOT POSSIBLE
+      case '':
+        return ItemTypeIcon.FOLDER;
+      case '':
+        return ItemTypeIcon.LINK;
+      */
       case 'mp3':
         return ItemTypeIcon.MUSIC;
+      case 'jpeg':
+      case 'jpg':
+      case 'png':
+      case 'tiff':
+        return ItemTypeIcon.PICTURE;
+      case 'avi':
       case 'mp4':
         return ItemTypeIcon.VIDEO;
       default:
