@@ -1,6 +1,5 @@
-enum ItemType {
+export enum ItemType {
   DIRECTORY,
-  DOCUMENT,
   FILE,
   LINK,
   REPORT,
