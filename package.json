@@ -14,10 +14,12 @@
   },
   "dependencies": {
     "@imengyu/vue3-context-menu": "^1.2.5",
+    "chart.js": "^4.2.1",
     "element-plus": "^2.3.3",
     "pinia": "^2.0.32",
     "sass": "^1.62.0",
     "vue": "^3.2.47",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
