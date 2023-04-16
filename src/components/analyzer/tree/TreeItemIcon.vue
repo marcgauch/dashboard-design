@@ -5,7 +5,7 @@
     <Folder v-else-if="icon === ItemTypeIcon.FOLDER" />
     <Link v-else-if="icon === ItemTypeIcon.LINK" />
     <Headset v-else-if="icon === ItemTypeIcon.MUSIC" />
-    <Film v-else-if="icon === ItemTypeIcon.MOVIE" />
+    <Film v-else-if="icon === ItemTypeIcon.VIDEO" />
     <Document v-else />
   </el-icon>
 </template>

@@ -6,7 +6,7 @@ export enum ItemType {
 }
 
 export enum ItemTypeIcon {
-  MOVIE,
+  VIDEO,
   FOLDER,
   LINK,
   MUSIC,
@@ -75,7 +75,7 @@ export class File extends Item {
       case 'mp3':
         return ItemTypeIcon.MUSIC;
       case 'mp4':
-        return ItemTypeIcon.MOVIE;
+        return ItemTypeIcon.VIDEO;
       default:
         return ItemTypeIcon.UNKNOWN;
     }
