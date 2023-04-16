@@ -1,6 +1,15 @@
-# dashboard-design
+# dashboard-design <!-- omit from toc -->
 
-This template should help get you started developing with Vue 3 in Vite.
+## Content <!-- omit from toc -->
+
+- [Recommended IDE Setup](#recommended-ide-setup)
+- [Type Support for `.vue` Imports in TS](#type-support-for-vue-imports-in-ts)
+- [Customize configuration](#customize-configuration)
+- [Project Setup](#project-setup)
+  - [Compile and Hot-Reload for Development](#compile-and-hot-reload-for-development)
+  - [Type-Check, Compile and Minify for Production](#type-check-compile-and-minify-for-production)
+  - [Lint with ESLint](#lint-with-eslint)
+  - [Combination of checks. Do this before commiting](#combination-of-checks-do-this-before-commiting)
 
 ## Recommended IDE Setup
 
@@ -44,3 +53,11 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Combination of checks. Do this before commiting
+
+```sh
+npm run check
+```
+
+Then fix all errors and re-run `npm run check`.
