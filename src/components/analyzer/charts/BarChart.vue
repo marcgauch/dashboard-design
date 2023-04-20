@@ -1,5 +1,8 @@
 <template>
-  <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
+  <el-card>
+    <template #header> Largest files </template>
+    <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
+  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -16,23 +19,24 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js';
+import { UNIT } from '@/services/Util';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const analyzeStore = useAnalyzeStore();
+const unitOfLargestFile = ref(0);
 
 analyzeStore.$subscribe(async () => {
   const largestFiles = analyzeStore.filesSortedBySize.slice(0, 10);
-
+  unitOfLargestFile.value = UTIL.calculateSize(largestFiles[0].size).unit;
   const labels = [] as string[];
   const dataset = {
     data: [] as number[],
     backgroundColor: [] as string[],
   };
-
   largestFiles.forEach(({ name, size, icon }) => {
     labels.push(name);
-    dataset.data.push(size);
+    dataset.data.push(UTIL.convertSize(size, UNIT.B, unitOfLargestFile.value));
     dataset.backgroundColor.push(UTIL.getColor(icon));
   });
   showChart.value = false;
@@ -55,10 +59,17 @@ const chartData = reactive({
 const chartOptions = reactive({
   responsive: true,
   maintainAspectRatios: false,
+  scales: {
+    y: {
+      ticks: {
+        callback: (value: any) =>
+          `${UTIL.calculateSize(value).size} ${UNIT[unitOfLargestFile.value]}`,
+      },
+    },
+  },
   plugins: {
     title: {
-      display: true,
-      text: 'Largest Files',
+      display: false,
     },
     legend: {
       display: false,
@@ -67,7 +78,8 @@ const chartOptions = reactive({
       callbacks: {
         label: (tooltipItems: any) => {
           return [
-            UTIL.calculateSize(tooltipItems.raw),
+            UTIL.calculateSize(UTIL.convertSize(tooltipItems.raw, unitOfLargestFile.value, UNIT.B))
+              .combined,
             analyzeStore.filesSortedBySize[tooltipItems.datasetIndex].fullPath,
           ];
         },

@@ -7,8 +7,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const TREE_ITEM_SIZE = reactive({
     STEP_SIZE: 1024,
     DECIMAL_PLACES: 2,
-    UNITS: ['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
-    TEXT_WHEN_TOO_BIG: 'much',
+    TEXT_WHEN_TOO_BIG: 'too many',
   });
   const DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE = ref(false);
 
@@ -30,19 +29,17 @@ export const useSettingsStore = defineStore('settings', () => {
       localStorage.getItem('TREE_EXPAND_DEFAULT_LEVEL') || '0'
     );
     TREE_BAR_COLOR.value = JSON.parse(localStorage.getItem('TREE_BAR_COLOR') || '#00FFFF');
-    const { STEP_SIZE, DECIMAL_PLACES, UNITS, TEXT_WHEN_TOO_BIG } = JSON.parse(
+    const { STEP_SIZE, DECIMAL_PLACES, TEXT_WHEN_TOO_BIG } = JSON.parse(
       localStorage.getItem('TREE_ITEM_SIZE') ||
         `{
       STEP_SIZE: 1024,
       DECIMAL_PLACES: 2,
-      UNITS: ['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
-      TEXT_WHEN_TOO_BIG: 'much',
+      TEXT_WHEN_TOO_BIG: 'too many',
     }`
     );
     TREE_ITEM_SIZE.DECIMAL_PLACES = DECIMAL_PLACES;
     TREE_ITEM_SIZE.STEP_SIZE = STEP_SIZE;
     TREE_ITEM_SIZE.TEXT_WHEN_TOO_BIG = TEXT_WHEN_TOO_BIG;
-    TREE_ITEM_SIZE.UNITS = UNITS;
 
     DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE.value = JSON.parse(
       localStorage.getItem('DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE') || 'false'
