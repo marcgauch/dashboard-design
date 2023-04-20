@@ -1,7 +1,7 @@
 <template>
   <div
     class="container user-select-none cursor-pointer"
-    :style="`border: 1px solid ${color};`"
+    :style="`border: 2px solid ${color};`"
     @click="toggleActive"
   >
     <div :class="[{ inactive: !active }, 'colored-label']" :style="`background-color: ${color}`">
@@ -44,13 +44,15 @@ const toggleActive = () => {
   display: flex;
   width: 9rem;
   height: 1rem;
+  border-radius: 0.15rem;
+  box-shadow: var(--el-box-shadow-light);
 }
 .name {
   text-transform: capitalize;
   padding-left: 0.5rem;
 }
 .colored-label {
-  width: 3rem;
+  width: 1.5rem;
 }
 
 .inactive {
