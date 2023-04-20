@@ -5,12 +5,14 @@ import { ItemType } from '@/models/models';
 
 export const useAnalyzeStore = defineStore('analyze', () => {
   const directoryPath = ref('/');
+  const analyzeDirectory = ref({} as Directory);
   const isCalculating = ref(false);
   const filesSortedBySize = ref([] as File[]);
   const disabledItemTypes = ref([] as ItemTypeIcon[]);
 
   const setDirectory = (directory: Directory) => {
     isCalculating.value = true;
+    analyzeDirectory.value = directory;
     directoryPath.value = directory.fullPath;
     console.log(directory.fullPath.toString());
     console.log(directory);
@@ -22,10 +24,12 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     const tmp = disabledItemTypes.value.filter((e) => e !== type);
     tmp.push(type);
     disabledItemTypes.value = tmp;
+    filesSortedBySize.value = sortFilesBySize(analyzeDirectory.value, disabledItemTypes.value);
   };
 
   const removeDisabledItemType = (type: ItemTypeIcon) => {
     disabledItemTypes.value = disabledItemTypes.value.filter((e) => e !== type);
+    filesSortedBySize.value = sortFilesBySize(analyzeDirectory.value, disabledItemTypes.value);
   };
 
   return {
