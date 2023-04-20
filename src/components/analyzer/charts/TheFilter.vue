@@ -7,6 +7,7 @@
     <FilterItem :icon="ItemTypeIcon.MUSIC" />
     <FilterItem :icon="ItemTypeIcon.PICTURE" />
     <FilterItem :icon="ItemTypeIcon.VIDEO" />
+    <FilterItem :icon="ItemTypeIcon.OTHER" />
   </div>
 </template>
 

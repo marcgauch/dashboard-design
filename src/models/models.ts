@@ -13,8 +13,8 @@ export enum ItemTypeIcon {
   FOLDER,
   LINK,
   MUSIC,
+  OTHER,
   PICTURE,
-  UNKNOWN,
   VIDEO,
 }
 
@@ -127,7 +127,7 @@ export class File extends Item {
       case 'mp4':
         return ItemTypeIcon.VIDEO;
       default:
-        return ItemTypeIcon.UNKNOWN;
+        return ItemTypeIcon.OTHER;
     }
   };
 }
