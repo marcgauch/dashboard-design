@@ -14,7 +14,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     directoryPath.value = directory.fullPath;
     console.log(directory.fullPath.toString());
     console.log(directory);
-    filesSortedBySize.value = sortFilesBySize(directory);
+    filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
     isCalculating.value = false;
   };
 
@@ -40,19 +40,23 @@ export const useAnalyzeStore = defineStore('analyze', () => {
 
 // UTIL
 
-const sortFilesBySize = (rootDirectory: Directory) => {
+const sortFilesBySize = (rootDirectory: Directory, ignoredTypes: ItemTypeIcon[]) => {
   const files = [] as File[];
-  getAllFilesRecursive(rootDirectory, files);
+  getAllFilesRecursive(rootDirectory, files, ignoredTypes);
   files.sort((a, b) => b.size - a.size);
   return files;
 };
 
-const getAllFilesRecursive = (rootDirectory: Directory, ouputArray: File[]) => {
+const getAllFilesRecursive = (
+  rootDirectory: Directory,
+  ouputArray: File[],
+  ignoredTypes: ItemTypeIcon[]
+) => {
   rootDirectory.contents.forEach((e) => {
-    if (e.type === ItemType.FILE) {
+    if (e.type === ItemType.DIRECTORY) {
+      getAllFilesRecursive(e as Directory, ouputArray, ignoredTypes);
+    } else if (e.type === ItemType.FILE && !ignoredTypes.includes(e.icon)) {
       ouputArray.push(e);
-    } else if (e.type === ItemType.DIRECTORY) {
-      getAllFilesRecursive(e as Directory, ouputArray);
     }
   });
 };
