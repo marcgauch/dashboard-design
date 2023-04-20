@@ -6,12 +6,16 @@ export enum ItemType {
 }
 
 export enum ItemTypeIcon {
-  FILM,
+  ARCHIVE,
+  BINARY,
+  DISK_IMAGE,
+  DOCUMENT,
   FOLDER,
   LINK,
   MUSIC,
+  OTHER,
   PICTURE,
-  UNKNOWN,
+  VIDEO,
 }
 
 export class Item {
@@ -68,16 +72,62 @@ export class File extends Item {
     );
   }
   static determineIcon = (name: string) => {
-    switch (name.split('.').at(-1)) {
-      case 'jpg':
-      case 'jpeg':
-        return ItemTypeIcon.PICTURE;
+    switch (name.split('.').at(-1)?.toLowerCase()) {
+      case 'gz':
+      case 'tar':
+      case 'zip':
+        return ItemTypeIcon.ARCHIVE;
+      case 'apk':
+      case 'bin':
+      case 'cs':
+      case 'exe':
+      case 'js':
+      case 'php':
+      case 'ps1':
+      case 'sh':
+      case 'ts':
+      case 'vue':
+        return ItemTypeIcon.BINARY;
+      case 'iso':
+      case 'ova':
+      case 'vdi':
+        return ItemTypeIcon.DISK_IMAGE;
+      case 'cfg':
+      case 'doc':
+      case 'docx':
+      case 'kdbx':
+      case 'log':
+      case 'md':
+      case 'ods':
+      case 'pdf':
+      case 'ppt':
+      case 'pptx':
+      case 'rdg':
+      case 'txt':
+      case 'url':
+      case 'xls':
+      case 'xlsx':
+        return ItemTypeIcon.DOCUMENT;
+      /* NOT POSSIBLE
+      case '':
+        return ItemTypeIcon.FOLDER;
+      case '':
+        return ItemTypeIcon.LINK;
+      */
       case 'mp3':
         return ItemTypeIcon.MUSIC;
+      case 'bmp':
+      case 'jpeg':
+      case 'jpg':
+      case 'png':
+      case 'tiff':
+        return ItemTypeIcon.PICTURE;
+      case 'avi':
+      case 'mov':
       case 'mp4':
-        return ItemTypeIcon.FILM;
+        return ItemTypeIcon.VIDEO;
       default:
-        return ItemTypeIcon.UNKNOWN;
+        return ItemTypeIcon.OTHER;
     }
   };
 }

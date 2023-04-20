@@ -3,6 +3,9 @@
   <pre>
     {{ chartOptions }}
   </pre>
+  <pre>
+    {{ chartData }}
+  </pre>
 </template>
 
 <script setup lang="ts">
@@ -23,24 +26,50 @@ import {
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const analyzeStore = useAnalyzeStore();
+
 analyzeStore.$subscribe(async () => {
   const largestFiles = analyzeStore.filesSortedBySize.slice(0, 10);
-  let labels = [] as string[];
-  let data = [] as number[];
-  largestFiles.forEach((f) => {
-    labels.push(f.name);
-    data.push(f.size);
+
+  const labels = [] as string[];
+  const dataset = {
+    data: [] as number[],
+    backgroundColor: [] as string[],
+  };
+
+  largestFiles.forEach(({ name, size, icon }) => {
+    labels.push(name);
+    dataset.data.push(size);
+    dataset.backgroundColor.push(UTIL.getColor(icon));
   });
   showChart.value = false;
   chartData.labels = labels;
-  chartData.datasets[0].data = data;
+  chartData.datasets = [dataset];
   await nextTick();
   showChart.value = true;
 });
 
 const chartData = reactive({
-  labels: ['January', 'February', 'March'],
-  datasets: [{ data: [40, 20, 12] }],
+  // https://stackoverflow.com/questions/44297428/chartjs-bar-chart-with-legend-which-corresponds-to-each-bar
+  labels: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ],
+  datasets: [
+    {
+      backgroundColor: ['#f87979', '#00ff00'],
+      data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+    },
+  ],
 });
 
 const chartOptions = reactive({
@@ -50,6 +79,9 @@ const chartOptions = reactive({
     title: {
       display: true,
       text: 'Largest Files',
+    },
+    legend: {
+      display: false,
     },
     tooltip: {
       callbacks: {
@@ -63,5 +95,5 @@ const chartOptions = reactive({
     },
   },
 });
-const showChart = ref(false);
+const showChart = ref(true);
 </script>
