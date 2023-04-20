@@ -21,12 +21,11 @@ import { ref } from 'vue';
 const props = defineProps<{
   icon: ItemTypeIcon;
 }>();
+const analyzeStore = useAnalyzeStore();
 
 const name = ItemTypeIcon[props.icon].toLowerCase().replaceAll('_', ' ');
 const color = `var(--color-${ItemTypeIcon[props.icon]})`;
-const active = ref(true);
-
-const analyzeStore = useAnalyzeStore();
+const active = ref(!analyzeStore.disabledItemTypes.includes(props.icon));
 
 const toggleActive = () => {
   if (active.value) {
