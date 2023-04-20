@@ -21,6 +21,7 @@ export class UTIL {
     return settingsStore.TREE_ITEM_SIZE.TEXT_WHEN_TOO_BIG;
   };
   public static getColor(icon: ItemTypeIcon) {
+    //IMPORTANT: Keep this in sync with @/styles/indes.scss/:root
     switch (icon) {
       case ItemTypeIcon.ARCHIVE:
         return '#9AE3B7';

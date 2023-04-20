@@ -1,3 +1,14 @@
+:root {
+  --color-ARCHIVE: #9AE3B7;
+  --color-BINARY: #E6CDA3;
+  --color-DISK_IMAGE: #F2EAC4;
+  --color-DOCUMENT: #F0A8A8;
+  --color-MUSIC: #EAB0E3;
+  --color-PICTURE: #95DBDA;
+  --color-VIDEO: #9BAADD;
+  --color-DEFAULT: #F0EFE6;
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     '微软雅黑', Arial, sans-serif;
@@ -27,4 +38,9 @@ code {
 
 .w-100 {
   width: 100%;
+}
+
+
+.justify-content-between {
+  justify-content: space-between !important;
 }
