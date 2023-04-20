@@ -81,30 +81,37 @@ export class File extends Item {
       case 'bin':
       case 'cs':
       case 'exe':
-      case 'js':
+      case 'msi':
       case 'php':
-      case 'ps1':
       case 'sh':
-      case 'ts':
-      case 'vue':
         return ItemTypeIcon.BINARY;
       case 'iso':
       case 'ova':
       case 'vdi':
         return ItemTypeIcon.DISK_IMAGE;
+      case 'accdb':
       case 'cfg':
+      case 'db':
       case 'doc':
       case 'docx':
+      case 'html':
+      case 'js':
       case 'kdbx':
       case 'log':
       case 'md':
       case 'ods':
+      case 'odt':
+      case 'one':
       case 'pdf':
       case 'ppt':
       case 'pptx':
+      case 'ps1':
       case 'rdg':
+      case 'ts':
       case 'txt':
       case 'url':
+      case 'vsd':
+      case 'vue':
       case 'xls':
       case 'xlsx':
         return ItemTypeIcon.DOCUMENT;
@@ -114,15 +121,21 @@ export class File extends Item {
       case '':
         return ItemTypeIcon.LINK;
       */
+      case 'flac':
       case 'mp3':
+      case 'wav':
+      case 'wma':
         return ItemTypeIcon.MUSIC;
       case 'bmp':
       case 'jpeg':
       case 'jpg':
+      case 'pdn':
       case 'png':
+      case 'tif':
       case 'tiff':
         return ItemTypeIcon.PICTURE;
       case 'avi':
+      case 'flv':
       case 'mov':
       case 'mp4':
         return ItemTypeIcon.VIDEO;
