@@ -71,28 +71,39 @@ export class File extends Item {
       File.determineIcon(name)
     );
   }
+
   static determineIcon = (name: string) => {
     switch (name.split('.').at(-1)?.toLowerCase()) {
       case 'gz':
       case 'tar':
+      case 'tgz':
+      case 'xz':
       case 'zip':
         return ItemTypeIcon.ARCHIVE;
       case 'apk':
       case 'bin':
       case 'cs':
+      case 'deb':
+      case 'dll':
+      case 'dmg':
       case 'exe':
+      case 'jar':
       case 'msi':
+      case 'run':
       case 'sh':
         return ItemTypeIcon.BINARY;
+      case 'img':
       case 'iso':
       case 'ova':
       case 'vdi':
         return ItemTypeIcon.DISK_IMAGE;
       case 'accdb':
       case 'cfg':
+      case 'csv':
       case 'db':
       case 'doc':
       case 'docx':
+      case 'gcode':
       case 'html':
       case 'js':
       case 'kdbx':
