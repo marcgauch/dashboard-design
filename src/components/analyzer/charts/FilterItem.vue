@@ -4,9 +4,7 @@
     :style="`border: 2px solid ${color};`"
     @click="toggleActive"
   >
-    <div :class="[{ inactive: !active }, 'colored-label']" :style="`background-color: ${color}`">
-      &nbsp;
-    </div>
+    <div class="colored-label" :style="`background-color: ${backgroundColor}`">&nbsp;</div>
     <div :class="[{ 'text-decoration-line-through': !active }, 'name']">
       {{ name }}
     </div>
@@ -26,13 +24,16 @@ const analyzeStore = useAnalyzeStore();
 const name = ItemTypeIcon[props.icon].toLowerCase().replaceAll('_', ' ');
 const color = `var(--color-${ItemTypeIcon[props.icon]})`;
 const active = ref(!analyzeStore.disabledItemTypes.includes(props.icon));
+const backgroundColor = ref(color);
 
 const toggleActive = () => {
   if (active.value) {
     active.value = false;
+    backgroundColor.value = 'var(--color-INACTIVE)';
     analyzeStore.addDisabledItemType(props.icon);
   } else {
     active.value = true;
+    backgroundColor.value = color;
     analyzeStore.removeDisabledItemType(props.icon);
   }
 };
@@ -55,6 +56,6 @@ const toggleActive = () => {
 }
 
 .inactive {
-  filter: brightness(0.7);
+  background-color: #f0efe6;
 }
 </style>

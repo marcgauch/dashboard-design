@@ -1,12 +1,13 @@
 :root {
-  --color-ARCHIVE: #9AE3B7;
-  --color-BINARY: #E6CDA3;
-  --color-DISK_IMAGE: #F2EAC4;
-  --color-DOCUMENT: #F0A8A8;
-  --color-MUSIC: #EAB0E3;
-  --color-PICTURE: #95DBDA;
-  --color-VIDEO: #9BAADD;
-  --color-OTHER: #F0EFE6;
+  --color-ARCHIVE: #9ae3b7;
+  --color-BINARY: #e6cda3;
+  --color-DISK_IMAGE: #f2eac4;
+  --color-DOCUMENT: #f0a8a8;
+  --color-MUSIC: #eab0e3;
+  --color-PICTURE: #95dbda;
+  --color-VIDEO: #9baadd;
+  --color-OTHER: #f0efe6;
+  --color-INACTIVE: #bebcba;
 }
 
 body {
@@ -40,12 +41,9 @@ code {
   width: 100%;
 }
 
-
 .justify-content-between {
   justify-content: space-between !important;
 }
-
-
 
 .text-decoration-line-through {
   text-decoration: line-through;
