@@ -1,3 +1,4 @@
+import { ItemTypeIcon } from '@/models/models';
 import { useSettingsStore } from '@/stores/settingsStore';
 
 export class UTIL {
@@ -19,4 +20,26 @@ export class UTIL {
     }
     return settingsStore.TREE_ITEM_SIZE.TEXT_WHEN_TOO_BIG;
   };
+  public static getColor(icon: ItemTypeIcon) {
+    switch (icon) {
+      case ItemTypeIcon.ARCHIVE:
+        return '#9AE3B7';
+      case ItemTypeIcon.BINARY:
+        return '#E6CDA3';
+      case ItemTypeIcon.DISK_IMAGE:
+        return '#F2EAC4';
+      case ItemTypeIcon.DOCUMENT:
+        return '#F0A8A8';
+      case ItemTypeIcon.MUSIC:
+        return '#EAB0E3';
+      case ItemTypeIcon.PICTURE:
+        return '#95DBDA';
+      case ItemTypeIcon.VIDEO:
+        return '#9BAADD';
+      default:
+        return '#F0EFE6';
+      // from https://www.pastelcolorpalettes.com/beautiful-pastel-colors
+      // RESERVE with 8 colorshttps://www.pastelcolorpalettes.com/8-color-pastels-rainbow:
+    }
+  }
 }

@@ -79,11 +79,17 @@ export class File extends Item {
         return ItemTypeIcon.ARCHIVE;
       case 'apk':
       case 'bin':
+      case 'cs':
       case 'exe':
+      case 'js':
+      case 'php':
       case 'ps1':
       case 'sh':
+      case 'ts':
+      case 'vue':
         return ItemTypeIcon.BINARY;
       case 'iso':
+      case 'ova':
       case 'vdi':
         return ItemTypeIcon.DISK_IMAGE;
       case 'cfg':
@@ -94,6 +100,8 @@ export class File extends Item {
       case 'md':
       case 'ods':
       case 'pdf':
+      case 'ppt':
+      case 'pptx':
       case 'rdg':
       case 'txt':
       case 'url':
@@ -108,12 +116,14 @@ export class File extends Item {
       */
       case 'mp3':
         return ItemTypeIcon.MUSIC;
+      case 'bmp':
       case 'jpeg':
       case 'jpg':
       case 'png':
       case 'tiff':
         return ItemTypeIcon.PICTURE;
       case 'avi':
+      case 'mov':
       case 'mp4':
         return ItemTypeIcon.VIDEO;
       default:
