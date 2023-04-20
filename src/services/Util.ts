@@ -13,7 +13,6 @@ const UNIT_LENGTH = 5;
 
 export class UTIL {
   static calculateSize = (size: number): { size: string; unit: UNIT; combined: string } => {
-    console.log(this.convertSize(1, UNIT.MB, UNIT.B));
     const settingsStore = useSettingsStore();
     if (size === 0) {
       return {
