@@ -1,5 +1,9 @@
 <template>
-  <div class="container" :style="`border: 1px solid ${color};`" @click="toggleActive">
+  <div
+    class="container user-select-none cursor-pointer"
+    :style="`border: 1px solid ${color};`"
+    @click="toggleActive"
+  >
     <div :class="[{ inactive: !active }, 'colored-label']" :style="`background-color: ${color}`">
       &nbsp;
     </div>
