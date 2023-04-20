@@ -1,11 +1,5 @@
 <template>
   <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
-  <pre>
-    {{ chartOptions }}
-  </pre>
-  <pre>
-    {{ chartData }}
-  </pre>
 </template>
 
 <script setup lang="ts">
@@ -49,25 +43,11 @@ analyzeStore.$subscribe(async () => {
 });
 
 const chartData = reactive({
-  // https://stackoverflow.com/questions/44297428/chartjs-bar-chart-with-legend-which-corresponds-to-each-bar
-  labels: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ],
+  labels: [] as string[],
   datasets: [
     {
-      backgroundColor: ['#f87979', '#00ff00'],
-      data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+      backgroundColor: [] as string[],
+      data: [] as number[],
     },
   ],
 });

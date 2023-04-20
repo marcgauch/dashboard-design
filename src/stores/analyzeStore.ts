@@ -36,6 +36,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     directoryPath,
     filesSortedBySize,
     isCalculating,
+    disabledItemTypes,
     setDirectory,
     addDisabledItemType,
     removeDisabledItemType,
@@ -56,7 +57,7 @@ const getAllFilesRecursive = (
   ouputArray: File[],
   ignoredTypes: ItemTypeIcon[]
 ) => {
-  rootDirectory.contents.forEach((e) => {
+  rootDirectory.contents?.forEach((e) => {
     if (e.type === ItemType.DIRECTORY) {
       getAllFilesRecursive(e as Directory, ouputArray, ignoredTypes);
     } else if (e.type === ItemType.FILE && !ignoredTypes.includes(e.icon)) {
