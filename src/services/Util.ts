@@ -16,11 +16,10 @@ export class UTIL {
     console.log(this.convertSize(1, UNIT.MB, UNIT.B));
     const settingsStore = useSettingsStore();
     if (size === 0) {
-      const U = UNIT[UNIT[0] as keyof typeof UNIT];
       return {
         size: '0',
-        unit: U,
-        combined: `0 ${U}`,
+        unit: UNIT[UNIT[0] as keyof typeof UNIT],
+        combined: `0 ${UNIT[0]}`,
       };
     }
     for (let i = 0; i < UNIT_LENGTH; i++) {
@@ -28,19 +27,17 @@ export class UTIL {
       if (newSize < 1) {
         if (i === 0) {
           // No decimals in bytes
-          const U = UNIT[UNIT[0] as keyof typeof UNIT];
           return {
             size: String(size),
-            unit: U,
-            combined: `${size} ${U}`,
+            unit: UNIT[UNIT[0] as keyof typeof UNIT],
+            combined: `${size} ${UNIT[0]}`,
           };
         }
         const S = size.toFixed(settingsStore.TREE_ITEM_SIZE.DECIMAL_PLACES);
-        const U = UNIT[UNIT[i] as keyof typeof UNIT];
         return {
           size: S,
-          unit: U,
-          combined: `${S} ${U}`,
+          unit: UNIT[UNIT[i] as keyof typeof UNIT],
+          combined: `${S} ${UNIT[i]}`,
         };
       }
       size = newSize;
@@ -48,6 +45,7 @@ export class UTIL {
     return {
       size: settingsStore.TREE_ITEM_SIZE.TEXT_WHEN_TOO_BIG,
       unit: UNIT[UNIT[0] as keyof typeof UNIT],
+      combined: `${settingsStore.TREE_ITEM_SIZE.TEXT_WHEN_TOO_BIG} ${UNIT[0]}`,
     };
   };
 
