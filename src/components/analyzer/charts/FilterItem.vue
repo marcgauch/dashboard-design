@@ -3,7 +3,7 @@
     <div :class="[{ inactive: !active }, 'colored-label']" :style="`background-color: ${color}`">
       &nbsp;
     </div>
-    <div class="name">
+    <div :class="[{ 'text-decoration-line-through': !active }, 'name']">
       {{ name }}
     </div>
   </div>
