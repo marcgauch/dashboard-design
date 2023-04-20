@@ -1,5 +1,8 @@
 <template>
-  <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
+  <el-card>
+    <template #header> Largest files </template>
+    <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
+  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -57,8 +60,7 @@ const chartOptions = reactive({
   maintainAspectRatios: false,
   plugins: {
     title: {
-      display: true,
-      text: 'Largest Files',
+      display: false,
     },
     legend: {
       display: false,
