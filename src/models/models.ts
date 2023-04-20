@@ -82,7 +82,6 @@ export class File extends Item {
       case 'cs':
       case 'exe':
       case 'msi':
-      case 'php':
       case 'sh':
         return ItemTypeIcon.BINARY;
       case 'iso':
@@ -103,6 +102,7 @@ export class File extends Item {
       case 'odt':
       case 'one':
       case 'pdf':
+      case 'php':
       case 'ppt':
       case 'pptx':
       case 'ps1':
@@ -127,6 +127,7 @@ export class File extends Item {
       case 'wma':
         return ItemTypeIcon.MUSIC;
       case 'bmp':
+      case 'gif':
       case 'jpeg':
       case 'jpg':
       case 'pdn':
