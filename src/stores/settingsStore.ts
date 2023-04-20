@@ -7,7 +7,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const TREE_ITEM_SIZE = reactive({
     STEP_SIZE: 1024,
     DECIMAL_PLACES: 2,
-    TEXT_WHEN_TOO_BIG: 'much',
+    TEXT_WHEN_TOO_BIG: 'too many',
   });
   const DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE = ref(false);
 
@@ -34,7 +34,7 @@ export const useSettingsStore = defineStore('settings', () => {
         `{
       STEP_SIZE: 1024,
       DECIMAL_PLACES: 2,
-      TEXT_WHEN_TOO_BIG: 'much',
+      TEXT_WHEN_TOO_BIG: 'too many',
     }`
     );
     TREE_ITEM_SIZE.DECIMAL_PLACES = DECIMAL_PLACES;
