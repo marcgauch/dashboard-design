@@ -18,7 +18,7 @@
 
     $root = New-Object -TypeName PSObject    
     $root | Add-Member -MemberType NoteProperty -Name "type" -Value "directory"
-    $root | Add-Member -MemberType NoteProperty -Name "name" -Value $path
+    $root | Add-Member -MemberType NoteProperty -Name "name" -Value $path.Replace("\", "/")
     $root | Add-Member -MemberType NoteProperty -Name "size" -Value (Get-Item $path).Length
     $root | Add-Member -MemberType NoteProperty -Name "contents" -Value (Get-DirectoryTree $path)
 
@@ -34,29 +34,27 @@
 function Get-DirectoryTree {
     param([string]$Path)
 
-    $items = Get-ChildItem $Path -Recurse
-
     $result = @()
 
+    $items = Get-ChildItem $Path
     foreach ($item in $items) {
         $type = if ($item.PSIsContainer) { 'directory' } else { 'file' }
-        $name = $item.Name
-        $size = $item.Length
 
         $obj = @{
             'type' = $type
-            'name' = $name
-            'size' = $size
+            'name' = $item.Name
+            'size' = $item.Length
         }
 
         if ($type -eq 'directory') {
             $contents = Get-DirectoryTree $item.FullName
-            $obj['contents'] = $contents
+            if ($contents.length -gt 0){
+                $obj['contents'] = Get-DirectoryTree $item.FullName
+            }
         }
 
         $result += $obj
     }
-
     return $result
   }
 
@@ -71,7 +69,7 @@ function Get-DirectoryTree {
     $tree = Create-Tree -path $analyzePath
     $tree | ConvertTo-Json -Depth 100 | Out-File "$reportFile" -Encoding utf8
   }
-
+   
 Do-Everything
 
 
@@ -105,6 +103,7 @@ const initalRoute = route.params.os.toString();
 const selectedTab = ref(allowedRoutes.includes(initalRoute) ? initalRoute : 'windows');
 
 //added lines 78 - 108
+/*
 
 export default defineComponent({
   data() {
@@ -136,6 +135,8 @@ export default defineComponent({
     },
   },
 });
+
+*/
 
 watch(
   () => route.params.os,
