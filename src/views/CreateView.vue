@@ -13,8 +13,25 @@
             </div>
           </template>
           <pre>
-      
-    function Get-DirectoryTree {
+            function Create-Tree {
+    param([string]$path)
+
+    $root = New-Object -TypeName PSObject    
+    $root | Add-Member -MemberType NoteProperty -Name "type" -Value "directory"
+    $root | Add-Member -MemberType NoteProperty -Name "name" -Value $path
+    $root | Add-Member -MemberType NoteProperty -Name "size" -Value (Get-Item $path).Length
+    $root | Add-Member -MemberType NoteProperty -Name "contents" -Value (Get-DirectoryTree $path)
+
+    $report = New-Object -TypeName PSObject
+    $report | Add-Member -MemberType NoteProperty -Name "type" -Value "report"
+    $report | Add-Member -MemberType NoteProperty -Name "directories" -Value 69
+    $report | Add-Member -MemberType NoteProperty -Name "files" -Value 420
+
+    return @($root, $report)
+}
+
+
+function Get-DirectoryTree {
     param([string]$Path)
 
     $items = Get-ChildItem $Path -Recurse
@@ -30,7 +47,6 @@
             'type' = $type
             'name' = $name
             'size' = $size
-            'fileType' = $fileType
         }
 
         if ($type -eq 'directory') {
@@ -44,8 +60,20 @@
     return $result
   }
 
-  $tree = Get-DirectoryTree 'PATH TO DIRECTORY THAT WILL BE SCANNED'
-  $tree | ConvertTo-Json -Depth 100 | Out-File 'PATH WHERE THE JSON DATA WILL BE SAVED\tree.json'
+  function Do-Everything {
+    param(
+    [Parameter(mandatory=$true)]
+    [string]$analyzePath,
+    [Parameter(mandatory=$true)]
+    [string]$reportFile
+    )
+    
+    $tree = Create-Tree -path $analyzePath
+    $tree | ConvertTo-Json -Depth 100 | Out-File "$reportFile" -Encoding utf8
+  }
+
+Do-Everything
+
 
 </pre
           >
