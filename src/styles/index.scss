@@ -1,3 +1,15 @@
+:root {
+  --color-ARCHIVE: #9ae3b7;
+  --color-BINARY: #e6cda3;
+  --color-DISK_IMAGE: #f2eac4;
+  --color-DOCUMENT: #f0a8a8;
+  --color-MUSIC: #eab0e3;
+  --color-PICTURE: #95dbda;
+  --color-VIDEO: #9baadd;
+  --color-OTHER: #f0efe6;
+  --color-INACTIVE: #bebcba;
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     '微软雅黑', Arial, sans-serif;
@@ -27,4 +39,22 @@ code {
 
 .w-100 {
   width: 100%;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
+
+.user-select-none {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

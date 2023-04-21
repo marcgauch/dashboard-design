@@ -1,57 +1,6 @@
 <template>
   <el-tabs type="border-card" v-model="selectedTab" @tab-click="updateTab">
-    <el-tab-pane label="Windows" name="windows"
-      ><el-text tag="i">
-        <el-card class="box-card">
-          <template #header>
-            <div class="card-header">
-              <span>Powershell Code</span>
-              <el-button class="button">Memememe</el-button>
-              <el-button class="button" text @click="copyCode" :disabled="copySuccess">{{
-                copyButtonLabel
-              }}</el-button>
-            </div>
-          </template>
-          <pre>
-      
-    function Get-DirectoryTree {
-    param([string]$Path)
-
-    $items = Get-ChildItem $Path -Recurse
-
-    $result = @()
-
-    foreach ($item in $items) {
-        $type = if ($item.PSIsContainer) { 'directory' } else { 'file' }
-        $name = $item.Name
-        $size = $item.Length
-
-        $obj = @{
-            'type' = $type
-            'name' = $name
-            'size' = $size
-            'fileType' = $fileType
-        }
-
-        if ($type -eq 'directory') {
-            $contents = Get-DirectoryTree $item.FullName
-            $obj['contents'] = $contents
-        }
-
-        $result += $obj
-    }
-
-    return $result
-  }
-
-  $tree = Get-DirectoryTree 'PATH TO DIRECTORY THAT WILL BE SCANNED'
-  $tree | ConvertTo-Json -Depth 100 | Out-File 'PATH WHERE THE JSON DATA WILL BE SAVED\tree.json'
-
-</pre
-          >
-        </el-card>
-      </el-text>
-    </el-tab-pane>
+    <el-tab-pane label="Windows" name="windows"><CreateWindows /></el-tab-pane>
     <el-tab-pane label="Mac" name="mac"><el-text tag="i">todo</el-text></el-tab-pane>
     <el-tab-pane label="Linux" name="linux">
       <el-text tag="i">tree -a -J -R -s ~/ownCloud/ > ~/tree.json</el-text>
@@ -60,13 +9,10 @@
 </template>
 
 <script setup lang="ts">
-//added line 62 for button logic
-import { defineComponent } from 'vue';
-
 import type { TabsPaneContext } from 'element-plus';
-import { method } from 'lodash';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import CreateWindows from '@/components/create/CreateWindows.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -75,39 +21,6 @@ const allowedRoutes = ['windows', 'mac', 'linux'];
 
 const initalRoute = route.params.os.toString();
 const selectedTab = ref(allowedRoutes.includes(initalRoute) ? initalRoute : 'windows');
-
-//added lines 78 - 108
-
-export default defineComponent({
-  data() {
-    return {
-      copySuccess: false,
-      copyButtonLabel: 'Copy Me!',
-    };
-  },
-
-  methods: {
-    copyCode() {
-      // Select the code inside the <pre> tag
-      const codeElement = this.$el.querySelector('pre');
-      const selection = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(codeElement);
-      selection.removeAllRanges();
-      selection.addRange(range);
-
-      // Copy the selected code to the clipboard
-      const copySuccess = document.execCommand('copy');
-
-      // Update the button label and log to the console
-      if (copySuccess) {
-        this.copySuccess = true;
-        this.copyButtonLabel = 'Done';
-        console.log('Code copied');
-      }
-    },
-  },
-});
 
 watch(
   () => route.params.os,
