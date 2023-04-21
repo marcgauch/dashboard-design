@@ -1,5 +1,5 @@
 <template>
-  <div>{{ humanReadableSize }}</div>
+  <div>{{ combined }}</div>
 </template>
 
 <script setup lang="ts">
@@ -8,5 +8,5 @@ const props = defineProps({
   size: { type: Number, required: true },
 });
 
-const humanReadableSize = UTIL.calculateSize(props.size);
+const { combined } = UTIL.calculateSize(props.size);
 </script>

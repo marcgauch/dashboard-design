@@ -1,35 +1,67 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import type { Directory, File } from '@/models/models';
+import type { Directory, File, ItemTypeIcon } from '@/models/models';
 import { ItemType } from '@/models/models';
 
 export const useAnalyzeStore = defineStore('analyze', () => {
-  const setDirectory = (directory: Directory) => {
-    isCalculating.value = true;
-    console.log(directory);
-    filesSortedBySize.value = sortFilesBySize(directory);
-    isCalculating.value = false;
-  };
+  const directoryPath = ref('/');
+  const analyzeDirectory = ref({} as Directory);
   const isCalculating = ref(false);
   const filesSortedBySize = ref([] as File[]);
-  return { setDirectory, filesSortedBySize, isCalculating };
+  const disabledItemTypes = ref([] as ItemTypeIcon[]);
+
+  const setDirectory = (directory: Directory) => {
+    isCalculating.value = true;
+    analyzeDirectory.value = directory;
+    directoryPath.value = directory.fullPath;
+    console.log(directory.fullPath.toString());
+    console.log(directory);
+    filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
+    isCalculating.value = false;
+  };
+
+  const addDisabledItemType = (type: ItemTypeIcon) => {
+    const tmp = disabledItemTypes.value.filter((e) => e !== type);
+    tmp.push(type);
+    disabledItemTypes.value = tmp;
+    filesSortedBySize.value = sortFilesBySize(analyzeDirectory.value, disabledItemTypes.value);
+  };
+
+  const removeDisabledItemType = (type: ItemTypeIcon) => {
+    disabledItemTypes.value = disabledItemTypes.value.filter((e) => e !== type);
+    filesSortedBySize.value = sortFilesBySize(analyzeDirectory.value, disabledItemTypes.value);
+  };
+
+  return {
+    directoryPath,
+    filesSortedBySize,
+    isCalculating,
+    disabledItemTypes,
+    setDirectory,
+    addDisabledItemType,
+    removeDisabledItemType,
+  };
 });
 
 // UTIL
 
-const sortFilesBySize = (rootDirectory: Directory) => {
+const sortFilesBySize = (rootDirectory: Directory, ignoredTypes: ItemTypeIcon[]) => {
   const files = [] as File[];
-  getAllFilesRecursive(rootDirectory, files);
+  getAllFilesRecursive(rootDirectory, files, ignoredTypes);
   files.sort((a, b) => b.size - a.size);
   return files;
 };
 
-const getAllFilesRecursive = (rootDirectory: Directory, ouputArray: File[]) => {
-  rootDirectory.contents.forEach((e) => {
-    if (e.type === ItemType.FILE) {
+const getAllFilesRecursive = (
+  rootDirectory: Directory,
+  ouputArray: File[],
+  ignoredTypes: ItemTypeIcon[]
+) => {
+  rootDirectory.contents?.forEach((e) => {
+    if (e.type === ItemType.DIRECTORY) {
+      getAllFilesRecursive(e as Directory, ouputArray, ignoredTypes);
+    } else if (e.type === ItemType.FILE && !ignoredTypes.includes(e.icon)) {
       ouputArray.push(e);
-    } else if (e.type === ItemType.DIRECTORY) {
-      getAllFilesRecursive(e as Directory, ouputArray);
     }
   });
 };

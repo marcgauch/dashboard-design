@@ -6,12 +6,16 @@ export enum ItemType {
 }
 
 export enum ItemTypeIcon {
-  FILM,
+  ARCHIVE,
+  BINARY,
+  DISK_IMAGE,
+  DOCUMENT,
   FOLDER,
   LINK,
   MUSIC,
+  OTHER,
   PICTURE,
-  UNKNOWN,
+  VIDEO,
 }
 
 export class Item {
@@ -67,17 +71,88 @@ export class File extends Item {
       File.determineIcon(name)
     );
   }
+
   static determineIcon = (name: string) => {
-    switch (name.split('.').at(-1)) {
-      case 'jpg':
-      case 'jpeg':
-        return ItemTypeIcon.PICTURE;
+    switch (name.split('.').at(-1)?.toLowerCase()) {
+      case 'gz':
+      case 'tar':
+      case 'tgz':
+      case 'xz':
+      case 'zip':
+        return ItemTypeIcon.ARCHIVE;
+      case 'apk':
+      case 'bin':
+      case 'cs':
+      case 'deb':
+      case 'dll':
+      case 'dmg':
+      case 'exe':
+      case 'jar':
+      case 'msi':
+      case 'run':
+      case 'sh':
+        return ItemTypeIcon.BINARY;
+      case 'img':
+      case 'iso':
+      case 'ova':
+      case 'vdi':
+        return ItemTypeIcon.DISK_IMAGE;
+      case 'accdb':
+      case 'cfg':
+      case 'csv':
+      case 'db':
+      case 'doc':
+      case 'docx':
+      case 'gcode':
+      case 'html':
+      case 'js':
+      case 'kdbx':
+      case 'log':
+      case 'md':
+      case 'ods':
+      case 'odt':
+      case 'one':
+      case 'pdf':
+      case 'php':
+      case 'ppt':
+      case 'pptx':
+      case 'ps1':
+      case 'rdg':
+      case 'ts':
+      case 'txt':
+      case 'url':
+      case 'vsd':
+      case 'vue':
+      case 'xls':
+      case 'xlsx':
+        return ItemTypeIcon.DOCUMENT;
+      /* NOT POSSIBLE
+      case '':
+        return ItemTypeIcon.FOLDER;
+      case '':
+        return ItemTypeIcon.LINK;
+      */
+      case 'flac':
       case 'mp3':
+      case 'wav':
+      case 'wma':
         return ItemTypeIcon.MUSIC;
+      case 'bmp':
+      case 'gif':
+      case 'jpeg':
+      case 'jpg':
+      case 'pdn':
+      case 'png':
+      case 'tif':
+      case 'tiff':
+        return ItemTypeIcon.PICTURE;
+      case 'avi':
+      case 'flv':
+      case 'mov':
       case 'mp4':
-        return ItemTypeIcon.FILM;
+        return ItemTypeIcon.VIDEO;
       default:
-        return ItemTypeIcon.UNKNOWN;
+        return ItemTypeIcon.OTHER;
     }
   };
 }
