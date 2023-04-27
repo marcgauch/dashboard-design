@@ -20,15 +20,20 @@ interface rawLink extends rawItem {
 }
 interface rawFile extends rawItem {}
 
+const parseJSON = (input: string): Array<any> => {
+  if (!input) throw 'No input';
+  try {
+    return JSON.parse(input);
+  } catch (exception) {
+    // tree on linux adds this error. this isn't beautiful nor useful. but so what.
+    input = input.replaceAll('{"error": "error opening dir"}', '');
+    return JSON.parse(input);
+  }
+};
+
 export class ReportFileParser {
   static parse(input: string, fileName: string): ReportFile {
-    if (!input) throw 'No input';
-    let obj;
-    try {
-      obj = JSON.parse(input);
-    } catch {
-      throw 'Not a valid JSON';
-    }
+    const obj = parseJSON(input);
     const directory = this.convertDirectory(obj.at(0), '');
     const report = this.convertReport(obj.at(1));
     return new ReportFile(fileName, directory, report);
