@@ -4,7 +4,7 @@
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
       <div
-        class="d-flex w-100"
+        class="d-flex w-100 text-truncate"
         :style="`background: linear-gradient(to right, ${settings.TREE_BAR_COLOR} ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
       >
         <TreeItemSize :size="item.totalSize" class="tree-item-size" />
@@ -108,7 +108,7 @@ const openContextMenu = (e: MouseEvent) => {
   margin-right: 0.55rem;
 }
 .tree-item-size {
-  width: 5rem;
+  width: 6rem;
   margin-left: 0.55rem; /*this and the one from .tree-item-size will determine where the colored bar starts */
 }
 .tree-item-name {

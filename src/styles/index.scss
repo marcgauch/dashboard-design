@@ -29,6 +29,7 @@ code {
   color: var(--ep-color-primary);
 }
 
+// taken fron bootstrap4
 .d-flex {
   display: flex;
 }
@@ -57,4 +58,10 @@ code {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
