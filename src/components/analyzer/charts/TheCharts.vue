@@ -5,7 +5,7 @@
       <BarChart />
     </el-col>
     <el-col :span="12">
-      <BarChart />
+      <BoxPlot />
     </el-col>
   </el-row>
   <el-row :gutter="8">
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import TheTitle from '../titleWithFilter/TheTitle.vue';
 import BarChart from '@/components/analyzer/charts/BarChart.vue';
+import BoxPlot from '@/components/analyzer/charts/BoxPlot.vue';
 </script>
 
 <style scoped></style>
