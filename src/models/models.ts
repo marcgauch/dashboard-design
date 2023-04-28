@@ -81,6 +81,7 @@ export class File extends Item {
       case 'zip':
         return ItemTypeIcon.ARCHIVE;
       case 'apk':
+      case 'appimage':
       case 'bin':
       case 'cs':
       case 'deb':
@@ -106,6 +107,7 @@ export class File extends Item {
       case 'gcode':
       case 'html':
       case 'js':
+      case 'json':
       case 'kdbx':
       case 'log':
       case 'md':
@@ -118,6 +120,8 @@ export class File extends Item {
       case 'pptx':
       case 'ps1':
       case 'rdg':
+      case 'rmd':
+      case 'sqlite':
       case 'ts':
       case 'txt':
       case 'url':
@@ -150,6 +154,7 @@ export class File extends Item {
       case 'flv':
       case 'mov':
       case 'mp4':
+      case 'vob':
         return ItemTypeIcon.VIDEO;
       default:
         return ItemTypeIcon.OTHER;
