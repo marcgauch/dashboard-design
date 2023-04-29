@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header> Average folder </template>
-    <BoxPlot :data="data" />
+    <BoxPlot :data="data" :show-label="true" />
   </el-card>
 </template>
 
@@ -56,5 +56,5 @@ setInterval(() => {
       .fill(0)
       .map(() => Math.random() * (Math.random() + Math.random())),
   ];
-}, 2000);
+}, 12000);
 </script>

@@ -16,6 +16,7 @@ const props = defineProps<{
       data: Array<Array<number>>;
     }>;
   };
+  showLabel?: boolean;
 }>();
 
 let chart: BoxPlotChart;
@@ -43,7 +44,7 @@ onMounted(() => {
     options: {
       plugins: {
         legend: {
-          display: false,
+          display: props.showLabel,
         },
       },
     },
