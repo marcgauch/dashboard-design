@@ -4,11 +4,11 @@
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
       <div
-        class="d-flex w-100 text-truncate"
+        class="d-flex w-100"
         :style="`background: linear-gradient(to right, ${settings.TREE_BAR_COLOR} ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
       >
         <TreeItemSize :size="item.totalSize" class="tree-item-size" />
-        <div class="name">{{ item.name }}</div>
+        <div class="tree-item-name">{{ item.name }}</div>
       </div>
     </div>
     <div v-if="expanded">
@@ -105,17 +105,21 @@ const openContextMenu = (e: MouseEvent) => {
 
 <style scoped>
 .tree-item-icon {
-  margin-right: 0.55rem;
+  margin-right: 1.1rem;
 }
 .tree-item-size {
-  width: 6rem;
-  margin-left: 0.55rem; /*this and the one from .tree-item-size will determine where the colored bar starts */
+  width: 5rem !important;
+  min-width: 5rem !important;
+  white-space: nowrap;
 }
 .tree-item-name {
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 .empty {
   border-left: 1px solid black;
   width: 1.1rem;
+  min-width: 1.1rem;
   min-height: 1px;
 }
 </style>

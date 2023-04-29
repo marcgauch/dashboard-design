@@ -8,5 +8,5 @@ const props = defineProps({
   size: { type: Number, required: true },
 });
 
-const { combined } = UTIL.calculateSize(props.size);
+const { combined } = UTIL.calculateSize(props.size, true);
 </script>
