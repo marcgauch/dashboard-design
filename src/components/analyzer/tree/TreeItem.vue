@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div @click="toggleExpand" @click.right.prevent="openContextMenu" class="d-flex w-100">
+    <div
+      @click="toggleExpand"
+      @click.right.prevent="openContextMenu"
+      class="d-flex w-100 tree-item"
+    >
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
       <div
-        class="d-flex w-100"
+        class="d-flex w-100 tree-item-gradient"
         :style="`background: linear-gradient(to right, ${settings.TREE_BAR_COLOR} ${percentageOfParent}%, #ffffff00 ${percentageOfParent}%) right;`"
       >
         <TreeItemSize :size="item.totalSize" class="tree-item-size" />
@@ -104,8 +108,14 @@ const openContextMenu = (e: MouseEvent) => {
 </script>
 
 <style scoped>
+.tree-item {
+  overflow-x: hidden;
+}
 .tree-item-icon {
   margin-right: 1.1rem;
+}
+.tree-item-gradient {
+  overflow-x: hidden;
 }
 .tree-item-size {
   width: 5rem !important;
@@ -115,6 +125,8 @@ const openContextMenu = (e: MouseEvent) => {
 .tree-item-name {
   overflow-x: hidden;
   white-space: nowrap;
+  flex-shrink: 1;
+  text-overflow: clip;
 }
 .empty {
   border-left: 1px solid black;
