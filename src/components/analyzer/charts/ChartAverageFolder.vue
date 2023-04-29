@@ -8,53 +8,36 @@
 <script setup lang="ts">
 // absolutely stolen from https://github.com/sgratzl/chartjs-chart-boxplot/blob/main/samples/default_esm.html
 import BoxPlot from '@/components/charts/BoxPlot.vue';
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
+import { useAnalyzeStore } from '@/stores/analyzeStore';
+import { useTreeStore } from '@/stores/treeStore';
+import { UNIT, UTIL } from '@/services/Util';
+
+const analyzeStore = useAnalyzeStore();
+const treeStore = useTreeStore();
+
 const data = reactive({
-  labels: ['Files', 'Size in MB', 'Directories'],
+  labels: ['Files', 'Directories'],
   datasets: [
     {
-      label: 'a',
+      label: 'current folder',
       color: '#0000FF',
-      data: [
-        [10, 10, 2],
-        [2, 3, 4],
-        [2, 3, 4],
-      ],
+      data: [[0], [0]],
     },
     {
-      label: 'b',
+      label: 'all folders',
       color: '#00FF00',
-      data: [
-        [10, 10, 2],
-        [2, 3, 4],
-        [2, 3, 4],
-      ],
+      data: [[0], [0]],
     },
   ],
 });
-
-setInterval(() => {
-  data.datasets.at(0)!.data = [
-    Array(100)
-      .fill(0)
-      .map(() => Math.random() * (Math.random() + Math.random())),
-    Array(100)
-      .fill(0)
-      .map(() => Math.random() * (Math.random() + Math.random())),
-    Array(100)
-      .fill(0)
-      .map(() => Math.random() * (Math.random() + Math.random())),
-  ];
-  data.datasets.at(1)!.data = [
-    Array(100)
-      .fill(0)
-      .map(() => Math.random() * (Math.random() + Math.random())),
-    Array(100)
-      .fill(0)
-      .map(() => Math.random() * (Math.random() + Math.random())),
-    Array(100)
-      .fill(0)
-      .map(() => Math.random() * (Math.random() + Math.random())),
-  ];
-}, 12000);
+watch(
+  () => analyzeStore.directories,
+  () => {
+    data.datasets[0].data = [
+      analyzeStore.directories.map((e) => e.nFiles),
+      analyzeStore.directories.map((e) => e.nDirectories),
+    ];
+  }
+);
 </script>

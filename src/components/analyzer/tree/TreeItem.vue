@@ -46,7 +46,7 @@ const props = defineProps({
 });
 
 const expanded = ref(props.indentationLevel <= settings.TREE_EXPAND_DEFAULT_LEVEL);
-const isDirectory = props.item.isDirectory();
+const { isDirectory } = props.item;
 
 const toggleExpand = () => {
   if (!isDirectory) return;
@@ -101,6 +101,7 @@ const openContextMenu = (e: MouseEvent) => {
     ],
   });
 };
+isDirectory;
 </script>
 
 <style scoped>
