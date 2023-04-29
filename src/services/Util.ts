@@ -11,9 +11,24 @@ export enum UNIT {
 // keep this in sync with the amount of entries in UNTIS
 const UNIT_LENGTH = 5;
 
+/**
+ * size in Bytes
+ * shortened: will cut results into
+ * 1234
+ * 123.4
+ * 12.45
+ * 1.234
+ * 0.123
+ * otherwise numbers as
+ * 1023.44 are possible
+ */
 export class UTIL {
-  static calculateSize = (size: number): { size: string; unit: UNIT; combined: string } => {
+  static calculateSize = (
+    size: number,
+    shortened = false
+  ): { size: string; unit: UNIT; combined: string } => {
     const settingsStore = useSettingsStore();
+    // Exit when size is 0
     if (size === 0) {
       return {
         size: '0',
@@ -21,6 +36,8 @@ export class UTIL {
         combined: `0 ${UNIT[0]}`,
       };
     }
+
+    // Default case
     for (let i = 0; i < UNIT_LENGTH; i++) {
       const newSize = size / settingsStore.TREE_ITEM_SIZE.STEP_SIZE;
       if (newSize < 1) {
@@ -32,15 +49,42 @@ export class UTIL {
             combined: `${size} ${UNIT[0]}`,
           };
         }
-        const S = size.toFixed(settingsStore.TREE_ITEM_SIZE.DECIMAL_PLACES);
+        const SAAA = shortened
+          ? size < 1
+            ? size.toFixed(3)
+            : size < 10
+            ? size.toFixed(2)
+            : size < 100
+            ? size.toFixed(1)
+            : size < 1000
+            ? size.toFixed(0)
+            : ''
+          : size.toFixed(settingsStore.TREE_ITEM_SIZE.DECIMAL_PLACES);
+
+        let S: string;
+        let U = UNIT[i];
+        if (shortened) {
+          if (size < 1) S = size.toFixed(3);
+          else if (size < 10) S = size.toFixed(2);
+          else if (size < 100) S = size.toFixed(1);
+          else if (size < 1000) S = size.toFixed(0);
+          else {
+            S = newSize.toFixed(3);
+            U = UNIT[i + 1];
+          }
+        } else {
+          S = size.toFixed(settingsStore.TREE_ITEM_SIZE.DECIMAL_PLACES);
+        }
         return {
           size: S,
-          unit: UNIT[UNIT[i] as keyof typeof UNIT],
-          combined: `${S} ${UNIT[i]}`,
+          unit: UNIT[U as keyof typeof UNIT],
+          combined: `${S} ${U}`,
         };
       }
       size = newSize;
     }
+
+    // When not exited in loop -> too big
     return {
       size: settingsStore.TREE_ITEM_SIZE.TEXT_WHEN_TOO_BIG,
       unit: UNIT[UNIT[0] as keyof typeof UNIT],
