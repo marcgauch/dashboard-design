@@ -1,6 +1,6 @@
 <template>
   <div>
-    Please save the following code as tree.ps1.
+    Please save the following code as <el-link type="primary" @click="download">tree.ps1</el-link>.
     <CopyText :text="powershellCode"></CopyText>
   </div>
 
@@ -88,6 +88,17 @@ const copyCode = () => {
   navigator.clipboard.writeText(powershellCode);
   copySuccess.value = true;
   copyButtonLabel.value = 'Done';
+};
+
+const download = () => {
+  // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser/30800715#30800715
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(powershellCode);
+  const downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute('href', dataStr);
+  downloadAnchorNode.setAttribute('download', 'tree.ps1');
+  document.body.appendChild(downloadAnchorNode); // required for firefox
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
 };
 </script>
 

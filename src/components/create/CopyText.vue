@@ -25,7 +25,7 @@ const copyToClipboard = () => {
 <style scoped>
 .wrapper {
   position: relative;
-  box-shadow: 10px 5px 5px red;
+  box-shadow: 10px 5px 5px var(--lt-color-gray-600);
 }
 
 .copy-button {
@@ -35,7 +35,9 @@ const copyToClipboard = () => {
 }
 
 pre {
-  background-color: rgb(245, 204, 235);
+  color: var(--lt-color-gray-100);
+  background-color: var(--lt-color-gray-600);
+  border-radius: var(--el-border-radius-base);
   font-family: monospace;
   padding: 0.2rem 1rem;
   max-height: 5rem;
