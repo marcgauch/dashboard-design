@@ -2,23 +2,14 @@
   <div>
     Please save the following code as <el-link type="primary" @click="download">tree.ps1</el-link>.
     <CopyText :text="powershellCode"></CopyText>
+    Then run the code with:
+    <pre>
+      Do-Everything -analyzePath &lt;D:\irectory\to\analyze&gt; -reportFile &lt;P:\ath\to\tree.json&gt;
+    </pre>
   </div>
-
-  <el-card class="box-card">
-    <template #header>
-      <div class="card-header">
-        <span>Powershell Code</span>
-        <el-button class="button" text @click="copyCode" :disabled="copySuccess">{{
-          copyButtonLabel
-        }}</el-button>
-      </div>
-    </template>
-    <pre>{{ powershellCode }}</pre>
-  </el-card>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import CopyText from './CopyText.vue';
 const powershellCode = `
 function Create-Tree {
@@ -26,7 +17,7 @@ function Create-Tree {
 
     $root = New-Object -TypeName PSObject    
     $root | Add-Member -MemberType NoteProperty -Name "type" -Value "directory"
-    $root | Add-Member -MemberType NoteProperty -Name "name" -Value $path.Replace("\", "/")
+    $root | Add-Member -MemberType NoteProperty -Name "name" -Value $path.Replace("\\", "/")
     $root | Add-Member -MemberType NoteProperty -Name "size" -Value (Get-Item $path).Length
     $root | Add-Member -MemberType NoteProperty -Name "contents" -Value (Get-DirectoryTree $path)
 
@@ -80,15 +71,6 @@ function Get-DirectoryTree {
    
 Do-Everything
 `;
-
-const copySuccess = ref(false);
-const copyButtonLabel = ref('Copy Me!');
-
-const copyCode = () => {
-  navigator.clipboard.writeText(powershellCode);
-  copySuccess.value = true;
-  copyButtonLabel.value = 'Done';
-};
 
 const download = () => {
   // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser/30800715#30800715
