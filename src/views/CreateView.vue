@@ -1,5 +1,5 @@
 <template>
-  <el-tabs type="border-card" v-model="selectedTab" @tab-click="updateTab">
+  <el-tabs type="border-card" class="create-card" v-model="selectedTab" @tab-click="updateTab">
     <el-tab-pane label="Windows" name="windows"><CreateWindows /></el-tab-pane>
     <el-tab-pane label="Mac" name="mac"><el-text tag="i">todo</el-text></el-tab-pane>
     <el-tab-pane label="Linux" name="linux">
@@ -55,5 +55,10 @@ const updateTab = ({ paneName }: TabsPaneContext) => {
 
 .box-card {
   width: auto;
+}
+
+.create-card {
+  max-height: 70vh;
+  overflow-y: auto;
 }
 </style>

@@ -1,4 +1,9 @@
 <template>
+  <div>
+    Please save the following code as tree.ps1.
+    <CopyText :text="powershellCode"></CopyText>
+  </div>
+
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
@@ -14,6 +19,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import CopyText from './CopyText.vue';
 const powershellCode = `
 function Create-Tree {
     param([string]$path)
