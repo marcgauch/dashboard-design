@@ -1,9 +1,10 @@
 <template>
   <el-container style="max-height: calc(100vh - 59px)">
-    <el-aside width="25vw">
+    <el-aside :width="`${treeContainerWidth}px`">
       <TreeContainer></TreeContainer>
     </el-aside>
-    <el-main style="border-left: 5px solid orchid">
+    <TheDivider @change="thedividerchanged" :default-width="400" />
+    <el-main>
       <TheCharts />
     </el-main>
   </el-container>
@@ -11,5 +12,12 @@
 
 <script setup lang="ts">
 import TheCharts from '@/components/analyzer/charts/TheCharts.vue';
+import TheDivider from '@/components/analyzer/tree/TheDivider.vue';
 import TreeContainer from '@/components/analyzer/tree/TreeContainer.vue';
+import { ref } from 'vue';
+const treeContainerWidth = ref(400);
+
+const thedividerchanged = (width: number) => {
+  treeContainerWidth.value = width;
+};
 </script>

@@ -1,6 +1,8 @@
 <template>
-  <div class="fill">
-    <TreeItem :item="treeStore.root" :indentation-level="0" :percentage-of-parent="100" />
+  <div class="outer">
+    <div class="inner">
+      <TreeItem :item="treeStore.root" :indentation-level="0" :percentage-of-parent="100" />
+    </div>
   </div>
 </template>
 
@@ -12,8 +14,13 @@ const treeStore = useTreeStore();
 </script>
 
 <style scoped>
-.fill {
-  margin: 0.5rem;
+.outer {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--lt-color-gray-300);
+}
+.inner {
+  padding: 0.5rem;
   overflow-y: scroll;
 }
 </style>
