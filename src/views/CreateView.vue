@@ -1,6 +1,6 @@
 <template>
-  <el-tabs type="border-card" v-model="selectedTab" @tab-click="updateTab">
-    <el-tab-pane label="Windows" name="windows"><el-text tag="i">todo</el-text></el-tab-pane>
+  <el-tabs type="border-card" class="create-card" v-model="selectedTab" @tab-click="updateTab">
+    <el-tab-pane label="Windows" name="windows"><CreateWindows /></el-tab-pane>
     <el-tab-pane label="Mac" name="mac"><el-text tag="i">todo</el-text></el-tab-pane>
     <el-tab-pane label="Linux" name="linux">
       <el-text tag="i">tree -a -J -R -s ~/ownCloud/ > ~/tree.json</el-text>
@@ -12,6 +12,7 @@
 import type { TabsPaneContext } from 'element-plus';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import CreateWindows from '@/components/create/CreateWindows.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -35,3 +36,29 @@ const updateTab = ({ paneName }: TabsPaneContext) => {
   router.replace({ path: `/create/${paneName}` });
 };
 </script>
+
+<!-- Added because of the element website. will remove-->
+<style>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: auto;
+}
+
+.create-card {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+</style>

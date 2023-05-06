@@ -53,7 +53,15 @@ export class ReportFileParser {
 
   private static convertDirectory(dir: rawDirectory, parentPath: string): Directory {
     const directory = new Directory(dir.name, dir.size, parentPath);
-    (dir.contents || []).forEach((e) => {
+
+    if (!dir.contents) return directory;
+    // this happens with the Powershellscript for empty folders
+    if (typeof dir.contents === 'object' && !Array.isArray(dir.contents)) return directory;
+
+    const contents: Array<rawItem> = dir.contents!;
+    if (!contents.length) return directory;
+
+    contents.forEach((e: rawItem) => {
       switch (e.type) {
         case 'directory':
           directory.addItem(this.convertDirectory(<rawDirectory>e, directory.fullPath));
