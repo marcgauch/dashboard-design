@@ -1,13 +1,13 @@
 <template>
   <div class="divider" @mousedown="mousedown" @mouseup="mouseup" @click="snap">
     <div class="divider-line"></div>
-    <div class="divider-button"><Guide /></div>
+    <div class="divider-button"><MoreFilled /></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Guide } from '@element-plus/icons-vue';
+import { MoreFilled } from '@element-plus/icons-vue';
 import { useCursorStore } from '@/stores/cursorStore';
 const cursorStore = useCursorStore();
 
