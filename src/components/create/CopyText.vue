@@ -25,7 +25,6 @@ const copyToClipboard = () => {
 <style scoped>
 .wrapper {
   position: relative;
-  box-shadow: 10px 5px 5px var(--lt-color-gray-600);
 }
 
 .copy-button {
