@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <el-button class="copy-button" @click="copyToClipboard">{{ buttonCaption }}</el-button>
+    <el-button class="copy-button" size="small" @click="copyToClipboard">{{
+      buttonCaption
+    }}</el-button>
     <pre>{{ text }}</pre>
   </div>
 </template>
@@ -38,7 +40,7 @@ pre {
   background-color: var(--lt-color-gray-600);
   border-radius: var(--el-border-radius-base);
   font-family: monospace;
-  padding: 0.2rem 1rem;
+  padding: 0.5rem 1rem;
   max-height: 5rem;
   overflow: auto;
 }
