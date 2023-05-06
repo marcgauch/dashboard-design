@@ -1,5 +1,5 @@
 <template>
-  <el-container style="max-height: calc(100vh - 59px)">
+  <el-container style="height: calc(100vh - 59px)">
     <el-aside :width="`${treeContainerWidth}px`">
       <TreeContainer></TreeContainer>
     </el-aside>
