@@ -1,8 +1,8 @@
 <template>
   <el-tabs type="border-card" class="create-card" v-model="selectedTab" @tab-click="updateTab">
     <el-tab-pane label="Windows" name="windows"><CreateWindows /></el-tab-pane>
-    <el-tab-pane label="Mac" name="mac"><el-text tag="i">todo</el-text></el-tab-pane>
-    <el-tab-pane label="Linux" name="linux"><CreateLinux /> </el-tab-pane>
+    <el-tab-pane label="Mac" name="mac"><CreateMac /></el-tab-pane>
+    <el-tab-pane label="Linux" name="linux"><CreateLinux /></el-tab-pane>
   </el-tabs>
 </template>
 
@@ -10,8 +10,9 @@
 import type { TabsPaneContext } from 'element-plus';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import CreateWindows from '@/components/create/CreateWindows.vue';
 import CreateLinux from '@/components/create/CreateLinux.vue';
+import CreateMac from '@/components/create/CreateMac.vue';
+import CreateWindows from '@/components/create/CreateWindows.vue';
 
 const route = useRoute();
 const router = useRouter();
