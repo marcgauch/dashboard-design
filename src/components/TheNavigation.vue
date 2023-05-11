@@ -6,8 +6,9 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     router
+    default-active="/upload"
   >
-    <el-sub-menu index="2">
+    <el-sub-menu>
       <template #title>Create Dataset</template>
       <el-menu-item index="/create/windows">Windows</el-menu-item>
       <el-menu-item index="/create/mac">Mac</el-menu-item>
