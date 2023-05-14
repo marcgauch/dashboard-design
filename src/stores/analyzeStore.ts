@@ -53,6 +53,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
 
   return {
     addDisabledItemType,
+    analyzeDirectory,
     changeType,
     directories,
     directoryNames,
