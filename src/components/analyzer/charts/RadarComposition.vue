@@ -32,6 +32,7 @@ const treeStore = useTreeStore();
 const showChart = ref(true);
 
 analyzeStore.$subscribe(async () => {
+  if (analyzeStore.isCalculating) return;
   // update labels
   showChart.value = false;
   const disabledTypes = analyzeStore.disabledItemTypes.map((e) => ItemTypeIcon[e]);

@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { Directory, File, ItemTypeIcon } from '@/models/models';
 import { ItemType } from '@/models/models';
@@ -19,22 +19,23 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const directoryNames = ref([] as { name: string; value: number }[]);
   const changeType = ref(ChangeType.NOTHING);
 
-  const setDirectory = (directory: Directory) => {
+  const setDirectory = async (directory: Directory) => {
     isCalculating.value = true;
-    analyzeDirectory.value = directory;
-    directoryPath.value = directory.fullPath;
-    console.log(directory.fullPath.toString());
-    console.log(directory);
-    const dirNames = {} as { [key: string]: number };
-    filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
-    directories.value = getAllDirectoriesRecursive(directory, dirNames);
-    // update directoryNames. currently dirNames is an object make it an array but only with the top 10.
-    const entries = Object.entries(dirNames).sort((a, b) => b[1] - a[1]);
-    directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
+    setTimeout(async () => {
+      analyzeDirectory.value = directory;
+      directoryPath.value = directory.fullPath;
+      const dirNames = {} as { [key: string]: number };
+      filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
+      directories.value = getAllDirectoriesRecursive(directory, dirNames);
+      // update directoryNames. currently dirNames is an object make it an array but only with the top 10.
+      const entries = Object.entries(dirNames).sort((a, b) => b[1] - a[1]);
+      directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
 
-    console.log(directoryNames.value);
-    changeType.value = ChangeType.DIRECTORY;
-    isCalculating.value = false;
+      console.log(directoryNames.value);
+      changeType.value = ChangeType.DIRECTORY;
+      await nextTick();
+      isCalculating.value = false;
+    }, 50);
   };
 
   const addDisabledItemType = (type: ItemTypeIcon) => {

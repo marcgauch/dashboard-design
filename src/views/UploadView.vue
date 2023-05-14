@@ -47,7 +47,9 @@ const upload = (file: any) => {
     if (!str) return;
     treeStore.reportFile = ReportFileParser.parse(str, name);
     if (settingsStore.DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE) {
-      localStorage.setItem('DATA', str);
+      try {
+        localStorage.setItem('DATA', str);
+      } catch {}
     }
   };
 

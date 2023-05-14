@@ -8,9 +8,11 @@
       <TheCharts />
     </el-main>
   </el-container>
+  <TheBusyDialog />
 </template>
 
 <script setup lang="ts">
+import TheBusyDialog from '@/components/TheBusyDialog.vue';
 import TheCharts from '@/components/analyzer/charts/TheCharts.vue';
 import TheDivider from '@/components/analyzer/tree/TheDivider.vue';
 import TreeContainer from '@/components/analyzer/tree/TreeContainer.vue';
