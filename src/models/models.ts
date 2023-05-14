@@ -48,6 +48,18 @@ export class ReportFile {
 export class Directory extends Item {
   nFiles = 0;
   nDirectories = 0;
+  totalContentSizes = {
+    ARCHIVE: 0,
+    BINARY: 0,
+    DISK_IMAGE: 0,
+    DOCUMENT: 0,
+    FOLDER: 0,
+    LINK: 0,
+    MUSIC: 0,
+    OTHER: 0,
+    PICTURE: 0,
+    VIDEO: 0,
+  } as { [key: string]: number };
 
   readonly contents = [] as Item[];
   constructor(name: string, size: number, fullPath: string) {
@@ -64,8 +76,13 @@ export class Directory extends Item {
     this.totalSize += item.totalSize;
     if (item.isDirectory) {
       this.nDirectories++;
+      const itemAsDirectory = item as Directory;
+      for (const type in this.totalContentSizes) {
+        this.totalContentSizes[type] += itemAsDirectory.totalContentSizes[type];
+      }
     } else {
       this.nFiles++;
+      this.totalContentSizes[ItemTypeIcon[item.icon]] += item.size;
     }
   }
 }

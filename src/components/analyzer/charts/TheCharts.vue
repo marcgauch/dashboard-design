@@ -17,7 +17,7 @@
       <ChartAverageFolder card-height="8rem" />
     </el-col>
     <el-col :span="8">
-      <BarChartLargestFiles card-height="8rem" />
+      <RadarComposition card-height="8rem" />
     </el-col>
     <el-col :span="8">
       <BarChartLargestFiles card-height="8rem" />
@@ -30,6 +30,7 @@ import TheTitle from '../titleWithFilter/TheTitle.vue';
 import BarChartAmountOfFoldertypes from '@/components/analyzer/charts/BarChartAmountOfFoldertypes.vue';
 import BarChartLargestFiles from '@/components/analyzer/charts/BarChartLargestFiles.vue';
 import ChartAverageFolder from '@/components/analyzer/charts/ChartAverageFolder.vue';
+import RadarComposition from './RadarComposition.vue';
 </script>
 
 <style scoped></style>
