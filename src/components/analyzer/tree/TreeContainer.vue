@@ -21,6 +21,7 @@ const treeStore = useTreeStore();
 }
 .inner {
   padding: 0.5rem;
+  height: 98%;
   overflow-y: scroll;
 }
 </style>
