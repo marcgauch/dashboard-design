@@ -106,13 +106,13 @@ const openContextMenu = (e: MouseEvent) => {
               {
                 label: 'TRUE',
                 onClick: () => {
-                  analyzeStore.isCalculatingDEBUG = true;
+                  analyzeStore.isCalculating = true;
                 },
               },
               {
                 label: 'FALSE',
                 onClick: () => {
-                  analyzeStore.isCalculatingDEBUG = false;
+                  analyzeStore.isCalculating = false;
                 },
               },
             ],

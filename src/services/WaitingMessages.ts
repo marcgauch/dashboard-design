@@ -1,39 +1,39 @@
 const MESSAGES_FROM_HPBAXTER = [
-  'Transforming the vibes',
-  'Cutting the hits',
-  'Getting into the place and making it real as it shouts',
-  'Kicking back',
-  'Coming down on the floor like a maniac',
+  'transforming the vibes',
+  'cutting the hits',
+  'getting into the place and making it real as it shouts',
+  'kicking back',
+  'coming down on the floor like a maniac',
 ];
 
 const MESSAGES_FROM_CHATGPT = [
-  'Calling a friend',
-  'Reading a book',
-  'Going for a walk',
-  'Watching a movie',
-  'Listening to music',
-  'Cooking a meal',
-  'Taking a nap',
-  'Writing in a journal',
-  'Doing some exercise',
-  'Meditating',
-  'Learning a new skill',
-  'Taking a hot bath',
-  'Practicing a hobby',
-  'Cleaning the house',
-  'Organizing its closet',
-  'Planning a vacation',
-  'Starting a project',
-  'Visiting a museum',
-  'Attending a concert',
-  'Volunteering for a cause',
+  'calling a friend',
+  'reading a book',
+  'going for a walk',
+  'watching a movie',
+  'listening to music',
+  'cooking a meal',
+  'taking a nap',
+  'writing in a journal',
+  'doing some exercise',
+  'meditating',
+  'learning a new skill',
+  'taking a hot bath',
+  'practicing a hobby',
+  'cleaning the house',
+  'organizing its closet',
+  'planning a vacation',
+  'starting a project',
+  'visiting a museum',
+  'attending a concert',
+  'volunteering for a cause',
 ];
 
 const MESSAGES_FROM_MARC = [
-  'Placing flowers',
-  'Feeding the cats',
-  'Doing the taxes',
-  'Cutting the hits',
+  'placing flowers',
+  'feeding the cats',
+  'doing the taxes',
+  'cutting the hits',
 ];
 
 export const MESSAGES = [
@@ -41,3 +41,5 @@ export const MESSAGES = [
   ...MESSAGES_FROM_CHATGPT,
   ...MESSAGES_FROM_MARC,
 ];
+
+export const pickRandomMessage = () => MESSAGES[Math.floor(Math.random() * MESSAGES.length)];
