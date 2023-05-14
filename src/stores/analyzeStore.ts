@@ -9,6 +9,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const isCalculating = ref(false);
   const filesSortedBySize = ref([] as File[]);
   const disabledItemTypes = ref([] as ItemTypeIcon[]);
+  const directories = ref([] as Directory[]);
 
   const setDirectory = (directory: Directory) => {
     isCalculating.value = true;
@@ -17,6 +18,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     console.log(directory.fullPath.toString());
     console.log(directory);
     filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
+    directories.value = getAllDirectoriesRecursive(directory);
     isCalculating.value = false;
   };
 
@@ -33,13 +35,14 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   };
 
   return {
+    addDisabledItemType,
+    directories,
     directoryPath,
+    disabledItemTypes,
     filesSortedBySize,
     isCalculating,
-    disabledItemTypes,
-    setDirectory,
-    addDisabledItemType,
     removeDisabledItemType,
+    setDirectory,
   };
 });
 
@@ -58,10 +61,25 @@ const getAllFilesRecursive = (
   ignoredTypes: ItemTypeIcon[]
 ) => {
   rootDirectory.contents?.forEach((e) => {
-    if (e.type === ItemType.DIRECTORY) {
+    if (e.isDirectory) {
       getAllFilesRecursive(e as Directory, ouputArray, ignoredTypes);
     } else if (e.type === ItemType.FILE && !ignoredTypes.includes(e.icon)) {
       ouputArray.push(e);
     }
   });
+};
+
+const getAllDirectoriesRecursive = (rootDirectory: Directory) => {
+  const outputArray = [] as Directory[];
+  const inner = (rootDirectory: Directory, outputArray: Directory[]) => {
+    rootDirectory.contents?.forEach((e) => {
+      if (e.isDirectory) {
+        const E = e as Directory;
+        outputArray.push(E);
+        inner(E, outputArray);
+      }
+    });
+  };
+  inner(rootDirectory, outputArray);
+  return outputArray;
 };

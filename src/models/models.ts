@@ -20,6 +20,7 @@ export enum ItemTypeIcon {
 
 export class Item {
   totalSize: number;
+  isDirectory = false;
   constructor(
     readonly name: string,
     readonly size: number,
@@ -28,8 +29,8 @@ export class Item {
     readonly icon: ItemTypeIcon
   ) {
     this.totalSize = size;
+    this.isDirectory = type === ItemType.DIRECTORY;
   }
-  isDirectory = () => this.type === ItemType.DIRECTORY;
 }
 
 export class ReportFile {
@@ -45,6 +46,9 @@ export class ReportFile {
 }
 
 export class Directory extends Item {
+  nFiles = 0;
+  nDirectories = 0;
+
   readonly contents = [] as Item[];
   constructor(name: string, size: number, fullPath: string) {
     super(
@@ -58,6 +62,11 @@ export class Directory extends Item {
   public addItem(item: Item) {
     this.contents.push(item);
     this.totalSize += item.totalSize;
+    if (item.isDirectory) {
+      this.nDirectories++;
+    } else {
+      this.nFiles++;
+    }
   }
 }
 
