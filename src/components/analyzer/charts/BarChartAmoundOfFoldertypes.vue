@@ -7,7 +7,8 @@
 
 <script setup lang="ts">
 import { nextTick, reactive, ref } from 'vue';
-import { useAnalyzeStore } from '@/stores/analyzeStore';
+import { ChangeType, useAnalyzeStore } from '@/stores/analyzeStore';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { Bar } from 'vue-chartjs';
 import {
   Chart as ChartJS,
@@ -18,7 +19,6 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js';
-import { useSettingsStore } from '@/stores/settingsStore';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -30,6 +30,7 @@ const analyzeStore = useAnalyzeStore();
 const settingsStore = useSettingsStore();
 
 analyzeStore.$subscribe(async () => {
+  if (analyzeStore.changeType !== ChangeType.DIRECTORY) return;
   const labels = [] as string[];
   const data = [] as number[];
 
