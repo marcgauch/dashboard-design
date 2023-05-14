@@ -13,7 +13,6 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const directoryPath = ref('/');
   const analyzeDirectory = ref({} as Directory);
   const isCalculating = ref(false);
-  const isCalculatingDEBUG = ref(false);
   const filesSortedBySize = ref([] as File[]);
   const disabledItemTypes = ref([] as ItemTypeIcon[]);
   const directories = ref([] as Directory[]);
@@ -22,11 +21,9 @@ export const useAnalyzeStore = defineStore('analyze', () => {
 
   const setDirectory = async (directory: Directory) => {
     isCalculating.value = true;
-    setTimeout(() => {
+    setTimeout(async () => {
       analyzeDirectory.value = directory;
       directoryPath.value = directory.fullPath;
-      console.log(directory.fullPath.toString());
-      console.log(directory);
       const dirNames = {} as { [key: string]: number };
       filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
       directories.value = getAllDirectoriesRecursive(directory, dirNames);
@@ -36,8 +33,9 @@ export const useAnalyzeStore = defineStore('analyze', () => {
 
       console.log(directoryNames.value);
       changeType.value = ChangeType.DIRECTORY;
+      await nextTick();
       isCalculating.value = false;
-    }, 15);
+    }, 50);
   };
 
   const addDisabledItemType = (type: ItemTypeIcon) => {
@@ -64,7 +62,6 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     disabledItemTypes,
     filesSortedBySize,
     isCalculating,
-    isCalculatingDEBUG,
     removeDisabledItemType,
     setDirectory,
   };
