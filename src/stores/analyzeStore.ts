@@ -10,6 +10,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const filesSortedBySize = ref([] as File[]);
   const disabledItemTypes = ref([] as ItemTypeIcon[]);
   const directories = ref([] as Directory[]);
+  const directoryNames = ref([] as { name: string; value: number }[]);
 
   const setDirectory = (directory: Directory) => {
     isCalculating.value = true;
@@ -17,8 +18,14 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     directoryPath.value = directory.fullPath;
     console.log(directory.fullPath.toString());
     console.log(directory);
+    const dirNames = {} as { [key: string]: number };
     filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
-    directories.value = getAllDirectoriesRecursive(directory);
+    directories.value = getAllDirectoriesRecursive(directory, dirNames);
+    // update directoryNames. currently dirNames is an object make it an array but only with the top 10.
+    const entries = Object.entries(dirNames).sort((a, b) => b[1] - a[1]);
+    directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
+
+    console.log(directoryNames.value);
     isCalculating.value = false;
   };
 
@@ -37,6 +44,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   return {
     addDisabledItemType,
     directories,
+    directoryNames,
     directoryPath,
     disabledItemTypes,
     filesSortedBySize,
@@ -69,17 +77,29 @@ const getAllFilesRecursive = (
   });
 };
 
-const getAllDirectoriesRecursive = (rootDirectory: Directory) => {
+const getAllDirectoriesRecursive = (
+  rootDirectory: Directory,
+  directoryNames: { [key: string]: number }
+) => {
   const outputArray = [] as Directory[];
-  const inner = (rootDirectory: Directory, outputArray: Directory[]) => {
+  const inner = (
+    rootDirectory: Directory,
+    outputArray: Directory[],
+    directoryNames: { [key: string]: number }
+  ) => {
+    // fill directoryNames
+    const { name } = rootDirectory;
+    directoryNames[name] = ~~directoryNames[name] + 1;
+
+    // continue with gathering directories
     rootDirectory.contents?.forEach((e) => {
       if (e.isDirectory) {
         const E = e as Directory;
         outputArray.push(E);
-        inner(E, outputArray);
+        inner(E, outputArray, directoryNames);
       }
     });
   };
-  inner(rootDirectory, outputArray);
+  inner(rootDirectory, outputArray, directoryNames);
   return outputArray;
 };
