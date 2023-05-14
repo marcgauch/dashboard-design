@@ -37,7 +37,7 @@ const copyToClipboard = () => {
 
 pre {
   color: var(--el-color-white);
-  background-color: var(--lt-color-gray-600);
+  background-color: var(--color-gray-600);
   border-radius: var(--el-border-radius-base);
   font-family: monospace;
   padding: 0.5rem 1rem;

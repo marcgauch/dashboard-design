@@ -56,8 +56,8 @@ const emitSize = () => {
   cursor: ew-resize;
 }
 .divider-line {
-  border-left: 0.2rem solid var(--lt-color-gray-400);
-  border-right: 0.2rem solid var(--lt-color-gray-400);
+  border-left: 0.2rem solid var(--color-gray-400);
+  border-right: 0.2rem solid var(--color-gray-400);
   position: relative;
   height: 100%;
 }
@@ -66,10 +66,10 @@ const emitSize = () => {
   top: 45%;
   left: -0.5rem;
   width: 1.2rem;
-  border: 1px solid var(--lt-color-gray-600);
+  border: 1px solid var(--color-gray-600);
   border-radius: 0.8rem;
   height: 4rem;
-  background-color: var(--lt-color-gray-200);
+  background-color: var(--color-gray-200);
   align-items: center;
   display: flex;
 }

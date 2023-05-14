@@ -17,7 +17,7 @@ const treeStore = useTreeStore();
 .outer {
   height: 100%;
   overflow: hidden;
-  background-color: var(--lt-color-gray-300);
+  background-color: var(--color-gray-300);
 }
 .inner {
   padding: 0.5rem;
