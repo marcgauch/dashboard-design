@@ -9,7 +9,7 @@
       <BarChartLargestFiles card-height="16rem" />
     </el-col>
     <el-col :span="12">
-      <BarChartAmoundOfFoldertypes card-height="16rem" />
+      <BarChartAmountOfFoldertypes card-height="16rem" />
     </el-col>
   </el-row>
   <el-row :gutter="8" style="display: flex; flex-grow: 1">
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import TheTitle from '../titleWithFilter/TheTitle.vue';
-import BarChartAmoundOfFoldertypes from '@/components/analyzer/charts/BarChartAmoundOfFoldertypes.vue';
+import BarChartAmountOfFoldertypes from '@/components/analyzer/charts/BarChartAmountOfFoldertypes.vue';
 import BarChartLargestFiles from '@/components/analyzer/charts/BarChartLargestFiles.vue';
 import ChartAverageFolder from '@/components/analyzer/charts/ChartAverageFolder.vue';
 </script>
