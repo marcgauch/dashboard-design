@@ -1,6 +1,8 @@
 <template>
-  <el-card>
-    <template #header> You are watching {{ analyzeStore.directoryPath }} in detail </template>
+  <el-card body-style="padding-top: 0.8rem; padding-bottom: 0.8rem;">
+    <template #header>
+      You are watching <el-text tag="b">{{ analyzeStore.directoryPath }}</el-text> in detail
+    </template>
     <TheFilter />
   </el-card>
 </template>

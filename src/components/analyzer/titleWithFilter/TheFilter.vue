@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-between">
+  <div class="filter-row">
     <FilterItem :icon="ItemTypeIcon.ARCHIVE" />
     <FilterItem :icon="ItemTypeIcon.BINARY" />
     <FilterItem :icon="ItemTypeIcon.DISK_IMAGE" />
@@ -16,4 +16,11 @@ import { ItemTypeIcon } from '@/models/models';
 import FilterItem from './FilterItem.vue';
 </script>
 
-<style scoped></style>
+<style scoped>
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+</style>

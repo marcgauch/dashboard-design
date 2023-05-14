@@ -42,20 +42,21 @@ const toggleActive = () => {
 <style scoped>
 .container {
   display: flex;
-  width: 9rem;
+  flex-grow: 1;
   height: 1rem;
   border-radius: 0.15rem;
+  box-shadow: var(--el-box-shadow-lighter);
+}
+.container:hover {
   box-shadow: var(--el-box-shadow-light);
 }
 .name {
   text-transform: capitalize;
-  padding-left: 0.5rem;
+  padding-left: 0.25rem;
+  padding-right: 0.5rem;
+  overflow: hidden;
 }
 .colored-label {
-  width: 1.5rem;
-}
-
-.inactive {
-  background-color: #f0efe6;
+  width: 1rem;
 }
 </style>
