@@ -4,7 +4,7 @@
       <TreeContainer></TreeContainer>
     </el-aside>
     <TheDivider @change="thedividerchanged" :default-width="400" />
-    <el-main>
+    <el-main style="display: flex; flex-direction: column">
       <TheCharts />
     </el-main>
   </el-container>
