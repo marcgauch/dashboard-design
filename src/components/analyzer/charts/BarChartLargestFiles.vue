@@ -31,7 +31,7 @@ const analyzeStore = useAnalyzeStore();
 const unitOfLargestFile = ref(0);
 
 analyzeStore.$subscribe(async () => {
-  const largestFiles = analyzeStore.filesSortedBySize.slice(0, 10);
+  const largestFiles = analyzeStore.filesSortedBySize.slice(0, 30);
   unitOfLargestFile.value = UTIL.calculateSize(largestFiles[0].size).unit;
   const labels = [] as string[];
   const dataset = {
