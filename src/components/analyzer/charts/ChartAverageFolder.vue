@@ -39,6 +39,7 @@ watch(
   // no need to check to watch analyzeStore.changeType since we are watching directrories only here
   () => analyzeStore.directories,
   () => {
+    if (analyzeStore.isCalculating) return;
     data.datasets[0].data = [
       analyzeStore.directories.map((e) => e.nFiles),
       analyzeStore.directories.map((e) => e.nDirectories),

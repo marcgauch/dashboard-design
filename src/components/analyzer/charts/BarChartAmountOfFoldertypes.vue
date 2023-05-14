@@ -30,6 +30,7 @@ const analyzeStore = useAnalyzeStore();
 const settingsStore = useSettingsStore();
 
 analyzeStore.$subscribe(async () => {
+  if (analyzeStore.isCalculating) return;
   if (analyzeStore.changeType !== ChangeType.DIRECTORY) return;
   const labels = [] as string[];
   const data = [] as number[];
