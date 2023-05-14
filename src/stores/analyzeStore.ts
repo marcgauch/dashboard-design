@@ -44,6 +44,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   return {
     addDisabledItemType,
     directories,
+    directoryNames,
     directoryPath,
     disabledItemTypes,
     filesSortedBySize,

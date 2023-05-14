@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import TheTitle from '../titleWithFilter/TheTitle.vue';
+import BarChartAmoundOfFoldertypes from '@/components/analyzer/charts/BarChartAmoundOfFoldertypes.vue';
 import BarChartLargestFiles from '@/components/analyzer/charts/BarChartLargestFiles.vue';
 import ChartAverageFolder from '@/components/analyzer/charts/ChartAverageFolder.vue';
 </script>
