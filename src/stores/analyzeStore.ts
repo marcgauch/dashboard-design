@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { Directory, File, ItemTypeIcon } from '@/models/models';
 import { ItemType } from '@/models/models';
@@ -13,28 +13,31 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const directoryPath = ref('/');
   const analyzeDirectory = ref({} as Directory);
   const isCalculating = ref(false);
+  const isCalculatingDEBUG = ref(false);
   const filesSortedBySize = ref([] as File[]);
   const disabledItemTypes = ref([] as ItemTypeIcon[]);
   const directories = ref([] as Directory[]);
   const directoryNames = ref([] as { name: string; value: number }[]);
   const changeType = ref(ChangeType.NOTHING);
 
-  const setDirectory = (directory: Directory) => {
+  const setDirectory = async (directory: Directory) => {
     isCalculating.value = true;
-    analyzeDirectory.value = directory;
-    directoryPath.value = directory.fullPath;
-    console.log(directory.fullPath.toString());
-    console.log(directory);
-    const dirNames = {} as { [key: string]: number };
-    filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
-    directories.value = getAllDirectoriesRecursive(directory, dirNames);
-    // update directoryNames. currently dirNames is an object make it an array but only with the top 10.
-    const entries = Object.entries(dirNames).sort((a, b) => b[1] - a[1]);
-    directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
+    setTimeout(() => {
+      analyzeDirectory.value = directory;
+      directoryPath.value = directory.fullPath;
+      console.log(directory.fullPath.toString());
+      console.log(directory);
+      const dirNames = {} as { [key: string]: number };
+      filesSortedBySize.value = sortFilesBySize(directory, disabledItemTypes.value);
+      directories.value = getAllDirectoriesRecursive(directory, dirNames);
+      // update directoryNames. currently dirNames is an object make it an array but only with the top 10.
+      const entries = Object.entries(dirNames).sort((a, b) => b[1] - a[1]);
+      directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
 
-    console.log(directoryNames.value);
-    changeType.value = ChangeType.DIRECTORY;
-    isCalculating.value = false;
+      console.log(directoryNames.value);
+      changeType.value = ChangeType.DIRECTORY;
+      isCalculating.value = false;
+    }, 15);
   };
 
   const addDisabledItemType = (type: ItemTypeIcon) => {
@@ -61,6 +64,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     disabledItemTypes,
     filesSortedBySize,
     isCalculating,
+    isCalculatingDEBUG,
     removeDisabledItemType,
     setDirectory,
   };

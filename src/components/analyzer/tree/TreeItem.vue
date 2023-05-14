@@ -100,6 +100,23 @@ const openContextMenu = (e: MouseEvent) => {
               },
             ],
           },
+          {
+            label: 'set busy state',
+            children: [
+              {
+                label: 'TRUE',
+                onClick: () => {
+                  analyzeStore.isCalculatingDEBUG = true;
+                },
+              },
+              {
+                label: 'FALSE',
+                onClick: () => {
+                  analyzeStore.isCalculatingDEBUG = false;
+                },
+              },
+            ],
+          },
         ],
       },
     ],
