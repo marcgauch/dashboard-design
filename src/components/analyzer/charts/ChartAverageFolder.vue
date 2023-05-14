@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card :body-style="`min-height: ${cardHeight}; position: relative;`">
     <template #header> Average folder </template>
     <BoxPlot :data="data" :show-label="true" />
   </el-card>
@@ -15,6 +15,10 @@ import { UNIT, UTIL } from '@/services/Util';
 
 const analyzeStore = useAnalyzeStore();
 const treeStore = useTreeStore();
+
+const props = defineProps({
+  cardHeight: { type: String, required: true },
+});
 
 const data = reactive({
   labels: ['Files', 'Directories'],

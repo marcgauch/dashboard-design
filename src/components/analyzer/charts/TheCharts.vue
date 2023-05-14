@@ -1,22 +1,26 @@
 <template>
-  <TheTitle />
-  <el-row :gutter="8">
-    <el-col :span="12">
-      <BarChart />
-    </el-col>
-    <el-col :span="12">
-      <ChartAverageFolder />
+  <el-row>
+    <el-col>
+      <TheTitle />
     </el-col>
   </el-row>
-  <el-row :gutter="8">
+  <el-row :gutter="8" style="display: flex; flex-grow: 1">
+    <el-col :span="12">
+      <BarChart card-height="16rem" />
+    </el-col>
+    <el-col :span="12">
+      <ChartAverageFolder card-height="16rem" />
+    </el-col>
+  </el-row>
+  <el-row :gutter="8" style="display: flex; flex-grow: 1">
     <el-col :span="8">
-      <BarChart />
+      <BarChart card-height="8rem" />
     </el-col>
     <el-col :span="8">
-      <BarChart />
+      <BarChart card-height="8rem" />
     </el-col>
     <el-col :span="8">
-      <BarChart />
+      <BarChart card-height="8rem" />
     </el-col>
   </el-row>
 </template>
