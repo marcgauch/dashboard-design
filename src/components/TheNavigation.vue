@@ -8,7 +8,7 @@
     router
     default-active="/upload"
   >
-    <el-sub-menu>
+    <el-sub-menu index="">
       <template #title>Create Dataset</template>
       <el-menu-item index="/create/windows">Windows</el-menu-item>
       <el-menu-item index="/create/mac">Mac</el-menu-item>
