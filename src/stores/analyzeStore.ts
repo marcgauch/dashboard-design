@@ -3,6 +3,12 @@ import { defineStore } from 'pinia';
 import type { Directory, File, ItemTypeIcon } from '@/models/models';
 import { ItemType } from '@/models/models';
 
+export enum ChangeType {
+  NOTHING,
+  DIRECTORY,
+  ITEM_FILTER,
+}
+
 export const useAnalyzeStore = defineStore('analyze', () => {
   const directoryPath = ref('/');
   const analyzeDirectory = ref({} as Directory);
@@ -11,6 +17,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const disabledItemTypes = ref([] as ItemTypeIcon[]);
   const directories = ref([] as Directory[]);
   const directoryNames = ref([] as { name: string; value: number }[]);
+  const changeType = ref(ChangeType.NOTHING);
 
   const setDirectory = (directory: Directory) => {
     isCalculating.value = true;
@@ -26,6 +33,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
 
     console.log(directoryNames.value);
+    changeType.value = ChangeType.DIRECTORY;
     isCalculating.value = false;
   };
 
@@ -34,15 +42,18 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     tmp.push(type);
     disabledItemTypes.value = tmp;
     filesSortedBySize.value = sortFilesBySize(analyzeDirectory.value, disabledItemTypes.value);
+    changeType.value = ChangeType.ITEM_FILTER;
   };
 
   const removeDisabledItemType = (type: ItemTypeIcon) => {
     disabledItemTypes.value = disabledItemTypes.value.filter((e) => e !== type);
     filesSortedBySize.value = sortFilesBySize(analyzeDirectory.value, disabledItemTypes.value);
+    changeType.value = ChangeType.ITEM_FILTER;
   };
 
   return {
     addDisabledItemType,
+    changeType,
     directories,
     directoryNames,
     directoryPath,

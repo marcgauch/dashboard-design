@@ -36,6 +36,7 @@ const data = reactive({
   ],
 });
 watch(
+  // no need to check to watch analyzeStore.changeType since we are watching directrories only here
   () => analyzeStore.directories,
   () => {
     data.datasets[0].data = [
