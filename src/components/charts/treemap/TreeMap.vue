@@ -4,26 +4,23 @@
     body-style="display: flex; flex-direction: column; height: 100%;"
   >
     <template #header> Hiiitmap </template>
-    <div>
-      <el-button
-        v-for="i in 3"
-        :key="i"
-        @mouseover="(e:any) => (buttonRef = e.currentTarget)"
-        @click="visible = !visible"
-        >Click to open tooltip</el-button
-      >
-    </div>
     <div class="container">
-      <div id="chart">
+      <div id="chart" @mouseleave="tooltipVisible = false">
         <TreeMapArea
           :directory="analyzeDirectory"
           :remainingDepth="1"
           :display-row="true"
-          @tooltip-visibility-change="tooltipVisibilityChange"
+          @tooltip-change="tooltipChange"
         />
-        <el-tooltip ref="tooltipRef" :visible="visible" :virtual-ref="buttonRef" virtual-triggering>
+        <el-tooltip
+          placement="top"
+          ref="tooltipRef"
+          :visible="tooltipVisible"
+          :virtual-ref="targetRef"
+          virtual-triggering
+        >
           <template #content>
-            <span> Some content </span>
+            <span>{{ tooltipMessage }}</span>
           </template>
         </el-tooltip>
       </div>
@@ -45,15 +42,17 @@ const props = defineProps({
 const analyzeStore = useAnalyzeStore();
 const analyzeDirectory = ref(new Directory('', 0, ''));
 
-const buttonRef = ref();
+const targetRef = ref();
 const tooltipRef = ref();
+const tooltipMessage = ref('');
 
-const visible = ref(false);
+const tooltipVisible = ref(false);
 
-const tooltipVisibilityChange = (value: { state: boolean; target: EventTarget }) => {
-  console.log(value);
-  buttonRef.value = value.target;
-  visible.value = value.state;
+const tooltipChange = (payload: { target: EventTarget; state: boolean; message: string }) => {
+  console.log(payload);
+  targetRef.value = payload.target;
+  tooltipMessage.value = payload.message;
+  tooltipVisible.value = payload.state;
 };
 
 analyzeStore.$subscribe(async () => {

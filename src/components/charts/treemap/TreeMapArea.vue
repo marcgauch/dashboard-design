@@ -1,19 +1,19 @@
 <template>
   <div
     :class="displayRow ? 'row' : 'column'"
-    :style="`padding: 10px; background-color: ${randomColor()}`"
-    @mouseover="startTooltopVisibilityChange"
+    :style="`padding: 20px; background-color: ${randomColor()}`"
+    @mouseover="startTooltipChange"
   >
-    <div v-if="remainingDepth >= 0" class="area">
+    <div v-if="remainingDepth > 0" class="area">
       <TreeMapArea
         v-for="dir in directory.contents.filter(e => e.isDirectory) as Directory[]"
         :directory="dir"
         :remainingDepth="remainingDepth - 1"
         :display-row="!displayRow"
-        @tooltip-visibility-change="tooltipVisibilityChange"
+        @tooltip-change="tooltipChange"
       />
     </div>
-    <div v-else class="area"></div>
+    <div v-else class="area">other</div>
   </div>
 </template>
 
@@ -27,22 +27,17 @@ const props = defineProps({
 });
 
 const emits = defineEmits<{
-  (e: 'tooltipVisibilityChange', value: { state: boolean; target: EventTarget }): void;
+  (e: 'tooltipChange', payload: { target: EventTarget; state: boolean; message: string }): void;
 }>();
 
-const startTooltopVisibilityChange = (e: MouseEvent) => {
+const startTooltipChange = (e: MouseEvent) => {
   e.stopPropagation();
-  tooltipVisibilityChange({ state: true, target: e.currentTarget! });
+  tooltipChange({ target: e.currentTarget!, state: true, message: props.directory.fullPath });
 };
 
-const tooltipVisibilityChange = (value: { state: boolean; target: EventTarget }) => {
-  emits('tooltipVisibilityChange', { state: value.state, target: value.target });
+const tooltipChange = (payload: { target: EventTarget; state: boolean; message: string }) => {
+  emits('tooltipChange', payload);
 };
-/*
-const tooltipVisibilityChangebak = (state: boolean, e: Event) => {
-  emits('tooltipVisibilityChange', { state: true, target: e.currentTarget });
-};
-*/
 
 const randomColor = () => {
   const number = 60 * props.remainingDepth;
