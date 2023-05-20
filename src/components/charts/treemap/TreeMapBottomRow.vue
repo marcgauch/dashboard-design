@@ -23,13 +23,13 @@ const emits = defineEmits<{
 }>();
 
 const tags = reactive([
-  { label: 'Archive', type: 'ARCHIVE', activeLeft: true, activeRight: false },
+  { label: 'Archive', type: 'ARCHIVE', activeLeft: false, activeRight: true },
   { label: 'Binary', type: 'BINARY', activeLeft: false, activeRight: true },
   { label: 'Disk Image', type: 'DISK_IMAGE', activeLeft: false, activeRight: true },
   { label: 'Document', type: 'DOCUMENT', activeLeft: false, activeRight: true },
-  { label: 'Music', type: 'MUSIC', activeLeft: false, activeRight: true },
+  { label: 'Music', type: 'MUSIC', activeLeft: true, activeRight: false },
   { label: 'Picture', type: 'PICTURE', activeLeft: false, activeRight: true },
-  { label: 'Video', type: 'VIDEO', activeLeft: false, activeRight: true },
+  { label: 'Video', type: 'VIDEO', activeLeft: true, activeRight: false },
   { label: 'Other', type: 'OTHER', activeLeft: false, activeRight: true },
 ]);
 
@@ -59,6 +59,7 @@ const updateParent = () => {
   });
   emits('change', { left, right });
 };
+updateParent();
 </script>
 
 <style scoped>
