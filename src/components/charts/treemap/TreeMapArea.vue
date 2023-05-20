@@ -1,64 +1,114 @@
 <template>
   <div
     :class="displayRow ? 'row' : 'column'"
-    :style="`padding: 20px; background-color: ${randomColor()}`"
+    class="flex"
+    :style="`background-color: ${color}; padding: ${remainingDepth + 2}px`"
     @mouseover="startTooltipChange"
   >
-    <div v-if="remainingDepth > 0" class="area">
-      <TreeMapArea
-        v-for="dir in directory.contents.filter(e => e.isDirectory) as Directory[]"
-        :directory="dir"
-        :remainingDepth="remainingDepth - 1"
-        :display-row="!displayRow"
-        @tooltip-change="tooltipChange"
-      />
-    </div>
-    <div v-else class="area">other</div>
+    <TreeMapArea
+      v-if="remainingDepth > 0"
+      :key="directory.fullPath"
+      v-for="dir in directory.contents.filter(e => e.isDirectory) as Directory[]"
+      :directory="dir"
+      :remainingDepth="remainingDepth - 1"
+      :display-row="!displayRow"
+      :filter="filter"
+      @tooltip-change="tooltipChange"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Directory } from '@/models/models';
+import { UTIL } from '@/services/Util';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   directory: { type: Directory, required: true },
   remainingDepth: { type: Number, required: true },
   displayRow: { type: Boolean, required: true },
+  filter: { type: Object, required: true },
 });
 
+watch(
+  () => props,
+  () => {
+    calculateColorAndAmount();
+  }
+);
+
+const color = ref('#000');
+const message = ref('');
 const emits = defineEmits<{
   (e: 'tooltipChange', payload: { target: EventTarget; state: boolean; message: string }): void;
 }>();
 
 const startTooltipChange = (e: MouseEvent) => {
   e.stopPropagation();
-  tooltipChange({ target: e.currentTarget!, state: true, message: props.directory.fullPath });
+  tooltipChange({ target: e.currentTarget!, state: true, message: message.value });
 };
 
 const tooltipChange = (payload: { target: EventTarget; state: boolean; message: string }) => {
   emits('tooltipChange', payload);
 };
 
-const randomColor = () => {
-  const number = 60 * props.remainingDepth;
-  return `rgb(${number},${number},${number})`;
+const calculateColorAndAmount = () => {
+  console.log(JSON.stringify(props.filter));
+  //console.log(JSON.stringify(props.directory.totalContentSizes));
+  const sumLeft = props.filter.left.reduce(
+    (acc: string, cur: string) => acc + props.directory.totalContentSizes[cur],
+    0
+  );
+  const sumRight = props.filter.right.reduce(
+    (acc: number, cur: string) => acc + props.directory.totalContentSizes[cur],
+    0
+  );
+  let relation = 0;
+  if (sumLeft === sumRight) {
+    relation = 0.5;
+  } else if (sumLeft === 0) {
+    relation = 1;
+  } else if (sumRight === 0) {
+    relation = 0;
+  } else {
+    relation = sumLeft / (sumLeft + sumRight);
+  }
+
+  //console.log(sumLeft, sumRight, relation);
+  const blue = Math.round(relation * 255);
+  const red = 255 - blue;
+  color.value = `rgb(${red},0,${blue})`;
+  message.value = `${props.directory.fullPath}<br />Left: ${
+    UTIL.calculateSize(sumLeft).combined
+  } [${Math.round(relation * 100)}%]<br />Right: ${
+    UTIL.calculateSize(sumRight).combined
+  } [${Math.round((1 - relation) * 100)}%]`;
 };
+
+calculateColorAndAmount();
 </script>
 
 <style scoped>
-.area {
-  border: 1px solid turquoise;
+.flex {
   display: flex;
-  flex-grow: 1;
+  flex: 1;
 }
 .row {
-  display: flex;
-  flex-grow: 1;
   flex-direction: row;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+.row:last-child {
+  border-bottom: 1px solid white;
 }
 .column {
-  display: flex;
-  flex-grow: 1;
   flex-direction: column;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+}
+.column:last-child {
+  border-right: 1px solid white;
 }
 </style>

@@ -8,9 +8,11 @@
       <div id="chart" @mouseleave="tooltipVisible = false">
         <TreeMapArea
           :directory="analyzeDirectory"
-          :remainingDepth="1"
+          :remainingDepth="4"
           :display-row="true"
-          @tooltip-change="tooltipChange"
+          :filter="typeFilter"
+          @tooltip-change="tooltipChanged"
+          :key="`${analyzeDirectory.fullPath}-${JSON.stringify(typeFilter)}`"
         />
         <el-tooltip
           placement="top"
@@ -18,13 +20,12 @@
           :visible="tooltipVisible"
           :virtual-ref="targetRef"
           virtual-triggering
+          :content="tooltipMessage"
+          raw-content
         >
-          <template #content>
-            <span>{{ tooltipMessage }}</span>
-          </template>
         </el-tooltip>
       </div>
-      <TreeMapBottomRow id="filter" />
+      <TreeMapBottomRow id="filter" @change="filterChanged" />
     </div>
   </el-card>
 </template>
@@ -48,11 +49,17 @@ const tooltipMessage = ref('');
 
 const tooltipVisible = ref(false);
 
-const tooltipChange = (payload: { target: EventTarget; state: boolean; message: string }) => {
-  console.log(payload);
+const typeFilter = ref({ left: [] as string[], right: [] as string[] });
+
+const tooltipChanged = (payload: { target: EventTarget; state: boolean; message: string }) => {
+  //console.log(payload);
   targetRef.value = payload.target;
   tooltipMessage.value = payload.message;
   tooltipVisible.value = payload.state;
+};
+
+const filterChanged = (filter: { left: string[]; right: string[] }) => {
+  typeFilter.value = filter;
 };
 
 analyzeStore.$subscribe(async () => {
@@ -71,8 +78,7 @@ analyzeStore.$subscribe(async () => {
   flex-direction: column;
 }
 #chart {
-  border: 1px solid salmon;
-  flex-grow: 1;
+  flex: 1;
   display: flex;
 }
 </style>

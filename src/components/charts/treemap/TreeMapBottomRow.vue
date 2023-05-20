@@ -18,26 +18,46 @@
 import { reactive } from 'vue';
 import TreeMapDropdown from './TeeMapDropdown.vue';
 
+const emits = defineEmits<{
+  (e: 'change', tags: { left: string[]; right: string[] }): void;
+}>();
+
 const tags = reactive([
   { label: 'Archive', type: 'ARCHIVE', activeLeft: true, activeRight: false },
-  { label: 'Binary', type: 'BINARY', activeLeft: true, activeRight: false },
-  { label: 'Disk Image', type: 'DISK_IMAGE', activeLeft: true, activeRight: true },
-  { label: 'Document', type: 'DOCUMENT', activeLeft: true, activeRight: true },
-  { label: 'Music', type: 'MUSIC', activeLeft: true, activeRight: true },
-  { label: 'Picture', type: 'PICTURE', activeLeft: true, activeRight: true },
-  { label: 'Video', type: 'VIDEO', activeLeft: true, activeRight: true },
-  { label: 'Other', type: 'OTHER', activeLeft: true, activeRight: true },
+  { label: 'Binary', type: 'BINARY', activeLeft: false, activeRight: true },
+  { label: 'Disk Image', type: 'DISK_IMAGE', activeLeft: false, activeRight: true },
+  { label: 'Document', type: 'DOCUMENT', activeLeft: false, activeRight: true },
+  { label: 'Music', type: 'MUSIC', activeLeft: false, activeRight: true },
+  { label: 'Picture', type: 'PICTURE', activeLeft: false, activeRight: true },
+  { label: 'Video', type: 'VIDEO', activeLeft: false, activeRight: true },
+  { label: 'Other', type: 'OTHER', activeLeft: false, activeRight: true },
 ]);
 
 const changeLeft = (newTags: { type: String; active: boolean }[]) => {
   tags.forEach((tag) => {
     tag.activeLeft = newTags.find((e) => e.type === tag.type)!.active;
   });
+  updateParent();
 };
 const changeRight = (newTags: { type: String; active: boolean }[]) => {
   tags.forEach((tag) => {
     tag.activeRight = newTags.find((e) => e.type === tag.type)!.active;
   });
+  updateParent();
+};
+
+const updateParent = () => {
+  const left = [] as string[];
+  const right = [] as string[];
+  tags.forEach((tag) => {
+    if (tag.activeLeft) {
+      left.push(tag.type);
+    }
+    if (tag.activeRight) {
+      right.push(tag.type);
+    }
+  });
+  emits('change', { left, right });
 };
 </script>
 
