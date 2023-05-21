@@ -2,7 +2,7 @@
   <div
     :class="displayRow ? 'row' : 'column'"
     class="flex"
-    :style="`background-color: ${color}; padding: ${remainingDepth + 2}px`"
+    :style="`background-color: ${color}; padding: 3px`"
     @mouseover="startTooltipChange"
     @click.right.prevent="openContextMenu"
   >
