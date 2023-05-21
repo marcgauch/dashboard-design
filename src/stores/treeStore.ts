@@ -6,6 +6,7 @@ export const useTreeStore = defineStore('tree', () => {
   const reportFile = ref(new ReportFile());
 
   const root = computed(() => reportFile.value.directory);
+  const isEmpty = computed(() => root.value.totalSize === -1);
 
-  return { reportFile, root };
+  return { isEmpty, reportFile, root };
 });

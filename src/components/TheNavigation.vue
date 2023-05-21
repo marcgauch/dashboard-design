@@ -15,6 +15,12 @@
       <el-menu-item index="/create/linux">Linux</el-menu-item>
     </el-sub-menu>
     <el-menu-item index="/upload">Upload</el-menu-item>
-    <el-menu-item index="/analyze">Analyze</el-menu-item>
+    <el-menu-item index="/analyze" :disabled="treeStore.isEmpty">Analyze</el-menu-item>
   </el-menu>
 </template>
+
+<script setup lang="ts">
+import { useTreeStore } from '@/stores/treeStore';
+
+const treeStore = useTreeStore();
+</script>
