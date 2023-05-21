@@ -34,7 +34,7 @@ const parseJSON = (input: string): Array<any> => {
 export class ReportFileParser {
   static parse(input: string, fileName: string): ReportFile {
     const obj = parseJSON(input);
-    const directory = this.convertDirectory(obj.at(0), '');
+    const directory = this.convertDirectory(obj.at(0), null);
     const report = this.convertReport(obj.at(1));
     return new ReportFile(fileName, directory, report);
   }
@@ -43,16 +43,16 @@ export class ReportFileParser {
     return new Report(r.directories, r.files);
   }
 
-  private static convertLink(l: rawLink, parentPath: string): Link {
-    return new Link(l.name, l.size, parentPath, l.target);
+  private static convertLink(l: rawLink, parentDirectory: Directory): Link {
+    return new Link(l.name, l.size, parentDirectory, l.target);
   }
 
-  private static convertFile(f: rawFile, parentPath: string): File {
-    return new File(f.name, f.size, parentPath);
+  private static convertFile(f: rawFile, parentDirectory: Directory): File {
+    return new File(f.name, f.size, parentDirectory);
   }
 
-  private static convertDirectory(dir: rawDirectory, parentPath: string): Directory {
-    const directory = new Directory(dir.name, dir.size, parentPath);
+  private static convertDirectory(dir: rawDirectory, parentDirectory: Directory | null): Directory {
+    const directory = new Directory(dir.name, dir.size, parentDirectory);
 
     if (!dir.contents) return directory;
     // this happens with the Powershellscript for empty folders
@@ -64,13 +64,13 @@ export class ReportFileParser {
     contents.forEach((e: rawItem) => {
       switch (e.type) {
         case 'directory':
-          directory.addItem(this.convertDirectory(<rawDirectory>e, directory.fullPath));
+          directory.addItem(this.convertDirectory(<rawDirectory>e, directory));
           break;
         case 'file':
-          directory.addItem(this.convertFile(<rawFile>e, directory.fullPath));
+          directory.addItem(this.convertFile(<rawFile>e, directory));
           break;
         case 'link':
-          directory.addItem(this.convertLink(<rawLink>e, directory.fullPath));
+          directory.addItem(this.convertLink(<rawLink>e, directory));
           break;
         default:
           console.log(`UNKNOWN TYPE ${e.type}`);
