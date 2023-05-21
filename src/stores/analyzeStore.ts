@@ -1,4 +1,4 @@
-import { nextTick, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import { defineStore } from 'pinia';
 import type { Directory, File, ItemTypeIcon } from '@/models/models';
 import { ItemType } from '@/models/models';
@@ -18,6 +18,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
   const directories = ref([] as Directory[]);
   const directoryNames = ref([] as { name: string; value: number }[]);
   const changeType = ref(ChangeType.NOTHING);
+  const isEmpty = computed(() => !Object.keys(analyzeDirectory.value).length);
 
   const setDirectory = async (directory: Directory) => {
     isCalculating.value = true;
@@ -61,6 +62,7 @@ export const useAnalyzeStore = defineStore('analyze', () => {
     disabledItemTypes,
     filesSortedBySize,
     isCalculating,
+    isEmpty,
     removeDisabledItemType,
     setDirectory,
   };
