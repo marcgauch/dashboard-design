@@ -22,7 +22,6 @@ const state = reactive({
 
 const snap = () => {
   // forbid snapping when moved by user
-  console.log(props.defaultWidth);
   if (Math.abs(state.width - state.startWidth) > 20) return;
   if (state.width < props.defaultWidth * 0.8) {
     state.width = props.defaultWidth;

@@ -58,7 +58,6 @@ const toggleExpand = () => {
 };
 
 const openContextMenu = (e: MouseEvent) => {
-  console.log(`double click on ${props.item.name}`);
   if (!isDirectory) return;
   // https://github.com/imengyu/vue3-context-menu
   e.preventDefault();
@@ -69,7 +68,7 @@ const openContextMenu = (e: MouseEvent) => {
     theme: 'mac',
     items: [
       {
-        label: 'Analyze',
+        label: 'Set as analyze directory',
         onClick: () => {
           analyzeStore.setDirectory(props.item as Directory);
         },
