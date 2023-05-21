@@ -64,7 +64,6 @@ const remainingDepth = ref(2);
 const typeFilter = ref({ left: [] as string[], right: [] as string[] });
 
 const tooltipChanged = (payload: { target: EventTarget; state: boolean; message: string }) => {
-  //console.log(payload);
   targetRef.value = payload.target;
   tooltipMessage.value = payload.message;
   tooltipVisible.value = payload.state;
@@ -76,7 +75,6 @@ const filterChanged = (filter: { left: string[]; right: string[] }) => {
 
 analyzeStore.$subscribe(async () => {
   if (analyzeStore.isCalculating) return;
-  console.log(analyzeDirectory);
   analyzeDirectory.value = analyzeStore.analyzeDirectory;
 });
 </script>

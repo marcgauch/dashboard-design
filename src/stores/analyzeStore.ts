@@ -31,7 +31,6 @@ export const useAnalyzeStore = defineStore('analyze', () => {
       const entries = Object.entries(dirNames).sort((a, b) => b[1] - a[1]);
       directoryNames.value = entries.slice(0, 10).map(([name, value]) => ({ name, value }));
 
-      console.log(directoryNames.value);
       changeType.value = ChangeType.DIRECTORY;
       await nextTick();
       isCalculating.value = false;

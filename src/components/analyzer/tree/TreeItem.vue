@@ -58,7 +58,6 @@ const toggleExpand = () => {
 };
 
 const openContextMenu = (e: MouseEvent) => {
-  console.log(`double click on ${props.item.name}`);
   if (!isDirectory) return;
   // https://github.com/imengyu/vue3-context-menu
   e.preventDefault();

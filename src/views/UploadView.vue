@@ -39,7 +39,6 @@ const loadDatasetFromStorage = () => {
 };
 
 const upload = (file: any) => {
-  //console.log(file);
   const { name, raw } = file;
   const FR = new FileReader();
   FR.onload = (e) => {

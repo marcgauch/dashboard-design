@@ -56,8 +56,6 @@ const tooltipChange = (payload: { target: EventTarget; state: boolean; message: 
 };
 
 const calculateColorAndAmount = () => {
-  console.log(JSON.stringify(props.filter));
-  //console.log(JSON.stringify(props.directory.totalContentSizes));
   const sumLeft = props.filter.left.reduce(
     (acc: string, cur: string) => acc + props.directory.totalContentSizes[cur],
     0
@@ -77,7 +75,6 @@ const calculateColorAndAmount = () => {
     relation = sumLeft / (sumLeft + sumRight);
   }
 
-  //console.log(sumLeft, sumRight, relation);
   const blue = Math.round(relation * 255);
   const red = 255 - blue;
   color.value = `rgb(${red},0,${blue})`;
