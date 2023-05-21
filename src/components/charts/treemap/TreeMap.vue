@@ -3,12 +3,23 @@
     style="height: 100%; display: flex; flex-direction: column"
     body-style="display: flex; flex-direction: column; height: 100%;"
   >
-    <template #header> Hiiitmap </template>
+    <template #header>
+      <div class="card-header">
+        <span>Heatmap</span>
+        <el-slider
+          show-stops
+          style="height: 1px; width: 25%"
+          :min="0"
+          :max="10"
+          v-model="remainingDepth"
+        />
+      </div>
+    </template>
     <div class="container">
       <div id="chart" @mouseleave="tooltipVisible = false">
         <TreeMapArea
           :directory="analyzeDirectory"
-          :remainingDepth="4"
+          :remainingDepth="remainingDepth"
           :display-row="true"
           :filter="typeFilter"
           @tooltip-change="tooltipChanged"
@@ -48,6 +59,7 @@ const tooltipRef = ref();
 const tooltipMessage = ref('');
 
 const tooltipVisible = ref(false);
+const remainingDepth = ref(2);
 
 const typeFilter = ref({ left: [] as string[], right: [] as string[] });
 
@@ -80,5 +92,10 @@ analyzeStore.$subscribe(async () => {
 #chart {
   flex: 1;
   display: flex;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
