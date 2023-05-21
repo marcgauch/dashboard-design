@@ -5,7 +5,7 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item v-for="tag in tags">
+        <el-dropdown-item v-for="tag in tags" :key="tag">
           <el-switch
             @change="changeSwitch(tag.type, tag.active)"
             v-model="tag.active"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed } from 'vue';
 
 interface Tag {
   label: string;

@@ -4,7 +4,7 @@
     <el-tooltip placement="top" content="Set as analyze directory">
       <div class="link-item" @click="analyzeRoot">{{ root }}</div>
     </el-tooltip>
-    <template v-for="(folder, i) in folders">
+    <template v-for="(folder, i) in folders" :key="`${folder}-${i}`">
       <div>/</div>
       <el-tooltip placement="top" content="Set as analyze directory">
         <div class="link-item" @click="analyzeFolder(i)">{{ folder }}</div>

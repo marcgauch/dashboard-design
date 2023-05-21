@@ -48,7 +48,9 @@ const upload = (file: any) => {
     if (settingsStore.DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE) {
       try {
         localStorage.setItem('DATA', str);
-      } catch {}
+      } catch {
+        console.log("Can't add your data to store. Probably it's just too big");
+      }
     }
   };
 

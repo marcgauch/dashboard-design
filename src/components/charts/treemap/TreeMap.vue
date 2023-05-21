@@ -49,7 +49,7 @@ import { ref } from 'vue';
 import { Directory } from '@/models/models';
 
 const analyzeStore = useAnalyzeStore();
-const analyzeDirectory = ref(new Directory('', 0, ''));
+const analyzeDirectory = ref(new Directory('', 0, null));
 
 const targetRef = ref();
 const tooltipRef = ref();

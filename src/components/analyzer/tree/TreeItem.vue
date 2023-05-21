@@ -32,7 +32,7 @@ import { Item, Directory } from '@/models/models';
 import TreeItem from './TreeItem.vue';
 import TreeItemIcon from './TreeItemIcon.vue';
 import TreeItemSize from './TreeItemSize.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useAnalyzeStore } from '@/stores/analyzeStore';
@@ -50,15 +50,15 @@ const props = defineProps({
 });
 
 const expanded = ref(props.indentationLevel <= settings.TREE_EXPAND_DEFAULT_LEVEL);
-const { isDirectory } = props.item;
+const isDirectory = computed(() => props.item.isDirectory);
 
 const toggleExpand = () => {
-  if (!isDirectory) return;
+  if (!isDirectory.value) return;
   expanded.value = !expanded.value;
 };
 
 const openContextMenu = (e: MouseEvent) => {
-  if (!isDirectory) return;
+  if (!isDirectory.value) return;
   // https://github.com/imengyu/vue3-context-menu
   e.preventDefault();
   //show your menu
@@ -121,7 +121,6 @@ const openContextMenu = (e: MouseEvent) => {
     ],
   });
 };
-isDirectory;
 </script>
 
 <style scoped>

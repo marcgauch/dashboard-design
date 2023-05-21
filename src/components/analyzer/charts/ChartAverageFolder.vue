@@ -10,11 +10,8 @@
 import BoxPlot from '@/components/charts/BoxPlot.vue';
 import { reactive, watch } from 'vue';
 import { useAnalyzeStore } from '@/stores/analyzeStore';
-import { useTreeStore } from '@/stores/treeStore';
-import { UNIT, UTIL } from '@/services/Util';
 
 const analyzeStore = useAnalyzeStore();
-const treeStore = useTreeStore();
 
 const data = reactive({
   labels: ['Files', 'Directories'],

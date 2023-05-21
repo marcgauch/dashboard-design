@@ -6,16 +6,17 @@
     @mouseover="startTooltipChange"
     @click.right.prevent="openContextMenu"
   >
-    <TreeMapArea
-      v-if="remainingDepth > 0"
-      :key="directory.fullPath"
-      v-for="dir in directory.contents.filter(e => e.isDirectory) as Directory[]"
-      :directory="dir"
-      :remainingDepth="remainingDepth - 1"
-      :display-row="!displayRow"
-      :filter="filter"
-      @tooltip-change="tooltipChange"
-    />
+    <template v-if="remainingDepth > 0">
+      <TreeMapArea
+        v-for="dir in directory.contents.filter(e => e.isDirectory) as Directory[]"
+        :key="dir.fullPath"
+        :directory="dir"
+        :remainingDepth="remainingDepth - 1"
+        :display-row="!displayRow"
+        :filter="filter"
+        @tooltip-change="tooltipChange"
+      />
+    </template>
   </div>
 </template>
 

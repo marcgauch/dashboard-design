@@ -49,17 +49,6 @@ export class UTIL {
             combined: `${size} ${UNIT[0]}`,
           };
         }
-        const SAAA = shortened
-          ? size < 1
-            ? size.toFixed(3)
-            : size < 10
-            ? size.toFixed(2)
-            : size < 100
-            ? size.toFixed(1)
-            : size < 1000
-            ? size.toFixed(0)
-            : ''
-          : size.toFixed(settingsStore.TREE_ITEM_SIZE.DECIMAL_PLACES);
 
         let S: string;
         let U = UNIT[i];
