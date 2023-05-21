@@ -1,5 +1,5 @@
 <template>
-  <el-card :body-style="`min-height: ${cardHeight}; position: relative;`">
+  <el-card style="height: 100%" body-style="position: relative;">
     <template #header>Composition of folder</template>
     <Radar v-if="showChart" :data="data" :options="options" />
   </el-card>
@@ -22,10 +22,6 @@ import { nextTick, reactive, ref } from 'vue';
 import { Radar } from 'vue-chartjs';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
-
-const props = defineProps({
-  cardHeight: { type: String, required: true },
-});
 
 const analyzeStore = useAnalyzeStore();
 const treeStore = useTreeStore();
