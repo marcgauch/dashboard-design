@@ -28,7 +28,7 @@ const router = createRouter({
     },
   ],
 });
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   const treeStore = useTreeStore();
   if (to.name === 'analyze' && treeStore.isEmpty) {
     return { name: 'upload' };

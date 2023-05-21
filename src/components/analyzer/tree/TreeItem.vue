@@ -3,7 +3,7 @@
     <div
       @click="toggleExpand"
       @click.right.prevent="openContextMenu"
-      class="d-flex w-100 tree-item"
+      :class="`d-flex w-100 tree-item ${isAnalyzedDirectoryStyle}`"
     >
       <div v-for="n in indentationLevel" :key="n" class="empty"></div>
       <TreeItemIcon :icon="item.icon" :expanded="expanded" class="tree-item-icon" />
@@ -51,6 +51,12 @@ const props = defineProps({
 
 const expanded = ref(props.indentationLevel <= settings.TREE_EXPAND_DEFAULT_LEVEL);
 const isDirectory = computed(() => props.item.isDirectory);
+
+const isAnalyzedDirectoryStyle = computed(() => {
+  if (!props.item.isDirectory) return '';
+  if (props.item.fullPath !== analyzeStore.directoryPath) return '';
+  return 'analyze-directory';
+});
 
 const toggleExpand = () => {
   if (!isDirectory.value) return;
@@ -126,6 +132,9 @@ const openContextMenu = (e: MouseEvent) => {
 <style scoped>
 .tree-item {
   overflow-x: hidden;
+}
+.analyze-directory {
+  background-color: var(--color-tree-selected);
 }
 .tree-item-icon {
   margin-right: 1.1rem;
