@@ -68,9 +68,9 @@ const calculateColorAndAmount = () => {
   if (sumLeft === sumRight) {
     relation = 0.5;
   } else if (sumLeft === 0) {
-    relation = 1;
-  } else if (sumRight === 0) {
     relation = 0;
+  } else if (sumRight === 0) {
+    relation = 1;
   } else {
     relation = sumLeft / (sumLeft + sumRight);
   }
