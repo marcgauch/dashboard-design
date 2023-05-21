@@ -69,7 +69,7 @@ const openContextMenu = (e: MouseEvent) => {
     theme: 'mac',
     items: [
       {
-        label: 'Analyze',
+        label: 'Set as analyze directory',
         onClick: () => {
           analyzeStore.setDirectory(props.item as Directory);
         },

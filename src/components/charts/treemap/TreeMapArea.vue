@@ -4,6 +4,7 @@
     class="flex"
     :style="`background-color: ${color}; padding: ${remainingDepth + 2}px`"
     @mouseover="startTooltipChange"
+    @click.right.prevent="openContextMenu"
   >
     <TreeMapArea
       v-if="remainingDepth > 0"
@@ -21,6 +22,8 @@
 <script setup lang="ts">
 import { Directory } from '@/models/models';
 import { UTIL } from '@/services/Util';
+import { useAnalyzeStore } from '@/stores/analyzeStore';
+import ContextMenu from '@imengyu/vue3-context-menu';
 import { ref, watch } from 'vue';
 
 const props = defineProps({
@@ -36,7 +39,7 @@ watch(
     calculateColorAndAmount();
   }
 );
-
+const analyzeStore = useAnalyzeStore();
 const color = ref('#000');
 const message = ref('');
 const emits = defineEmits<{
@@ -83,6 +86,25 @@ const calculateColorAndAmount = () => {
   } [${Math.round(relation * 100)}%]<br />Right: ${
     UTIL.calculateSize(sumRight).combined
   } [${Math.round((1 - relation) * 100)}%]`;
+};
+const openContextMenu = (e: MouseEvent) => {
+  // https://github.com/imengyu/vue3-context-menu
+  e.preventDefault();
+  e.stopPropagation();
+  //show your menu
+  ContextMenu.showContextMenu({
+    x: e.x,
+    y: e.y,
+    theme: 'mac',
+    items: [
+      {
+        label: 'Set as analyze directory',
+        onClick: () => {
+          analyzeStore.setDirectory(props.directory);
+        },
+      },
+    ],
+  });
 };
 
 calculateColorAndAmount();
