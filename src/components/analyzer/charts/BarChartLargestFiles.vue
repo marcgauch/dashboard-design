@@ -1,5 +1,5 @@
 <template>
-  <el-card :body-style="`min-height: ${cardHeight}; position: relative;`">
+  <el-card style="position: relative; height: 100%" body-style="height: 100%">
     <template #header> Largest files </template>
     <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
   </el-card>
@@ -23,16 +23,12 @@ import { UNIT } from '@/services/Util';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const props = defineProps({
-  cardHeight: { type: String, required: true },
-});
-
 const analyzeStore = useAnalyzeStore();
 const unitOfLargestFile = ref(0);
 
 analyzeStore.$subscribe(async () => {
   if (analyzeStore.isCalculating) return;
-  const largestFiles = analyzeStore.filesSortedBySize.slice(0, 30);
+  const largestFiles = analyzeStore.filesSortedBySize.slice(0, 10);
   unitOfLargestFile.value = UTIL.calculateSize(largestFiles[0]?.size).unit;
   const labels = [] as string[];
   const dataset = {

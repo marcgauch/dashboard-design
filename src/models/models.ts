@@ -21,13 +21,15 @@ export enum ItemTypeIcon {
 export class Item {
   totalSize: number;
   isDirectory = false;
+  readonly fullPath: string;
   constructor(
     readonly name: string,
     readonly size: number,
-    readonly fullPath: string,
+    readonly parent: Directory | null,
     readonly type: ItemType,
     readonly icon: ItemTypeIcon
   ) {
+    this.fullPath = parent?.fullPath ? `${parent.fullPath}${name}/` : name;
     this.totalSize = size;
     this.isDirectory = type === ItemType.DIRECTORY;
   }
@@ -40,7 +42,7 @@ export class ReportFile {
 
   constructor(name?: string, directory?: Directory, report?: Report) {
     this.name = name || 'null';
-    this.directory = directory || new Directory('null', -1, 'null');
+    this.directory = directory || new Directory('null', -1, null);
     this.report = report || new Report(-1, -1);
   }
 }
@@ -62,14 +64,8 @@ export class Directory extends Item {
   } as { [key: string]: number };
 
   readonly contents = [] as Item[];
-  constructor(name: string, size: number, fullPath: string) {
-    super(
-      name,
-      size,
-      fullPath ? `${fullPath}${name}/` : name,
-      ItemType.DIRECTORY,
-      ItemTypeIcon.FOLDER
-    );
+  constructor(name: string, size: number, parent: Directory | null) {
+    super(name, size, parent, ItemType.DIRECTORY, ItemTypeIcon.FOLDER);
   }
   public addItem(item: Item) {
     this.contents.push(item);
@@ -88,14 +84,8 @@ export class Directory extends Item {
 }
 
 export class File extends Item {
-  constructor(name: string, size: number, fullPath: string) {
-    super(
-      name,
-      size,
-      fullPath ? `${fullPath}${name}` : name,
-      ItemType.FILE,
-      File.determineIcon(name)
-    );
+  constructor(name: string, size: number, parent: Directory) {
+    super(name, size, parent, ItemType.FILE, File.determineIcon(name));
   }
 
   static determineIcon = (name: string) => {
@@ -191,8 +181,8 @@ export class File extends Item {
 export class Link extends Item {
   readonly target: string;
 
-  constructor(name: string, size: number, fullPath: string, target: string) {
-    super(name, size, fullPath ? `${fullPath}${name}/` : name, ItemType.LINK, ItemTypeIcon.LINK);
+  constructor(name: string, size: number, parent: Directory, target: string) {
+    super(name, size, parent, ItemType.LINK, ItemTypeIcon.LINK);
     this.target = target;
   }
 }

@@ -47,9 +47,6 @@ import TreeMapArea from './TreeMapArea.vue';
 import TreeMapBottomRow from './TreeMapBottomRow.vue';
 import { ref } from 'vue';
 import { Directory } from '@/models/models';
-const props = defineProps({
-  cardHeight: { type: String, required: true },
-});
 
 const analyzeStore = useAnalyzeStore();
 const analyzeDirectory = ref(new Directory('', 0, ''));

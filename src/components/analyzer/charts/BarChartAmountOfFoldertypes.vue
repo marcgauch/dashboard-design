@@ -1,5 +1,5 @@
 <template>
-  <el-card :body-style="`min-height: ${cardHeight}; position: relative;`">
+  <el-card style="position: relative; height: 100%" body-style="height: 100%">
     <template #header>Most common foldernames</template>
     <Bar v-if="showChart" id="my-chart-id" :options="chartOptions" :data="chartData" />
   </el-card>
@@ -21,10 +21,6 @@ import {
 } from 'chart.js';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
-
-const props = defineProps({
-  cardHeight: { type: String, required: true },
-});
 
 const analyzeStore = useAnalyzeStore();
 const settingsStore = useSettingsStore();

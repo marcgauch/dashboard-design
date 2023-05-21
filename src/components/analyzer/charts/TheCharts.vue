@@ -4,23 +4,23 @@
       <TheTitle />
     </el-col>
   </el-row>
-  <el-row :gutter="8" style="display: flex; flex-grow: 1; margin-top: 8px; margin-bottom: 8px">
+  <el-row :gutter="8" style="display: flex; flex: 5; margin-top: 8px; margin-bottom: 8px">
     <el-col :span="18">
-      <TreeMap card-height="32rem" />
+      <TreeMap />
     </el-col>
     <el-col :span="6">
-      <RadarComposition card-height="16rem" />
+      <RadarComposition />
     </el-col>
   </el-row>
-  <el-row :gutter="8" style="display: flex; flex-grow: 1">
+  <el-row :gutter="8" style="display: flex; flex: 1; flex-basis: 0%">
     <el-col :span="8">
-      <BarChartAmountOfFoldertypes card-height="8rem" />
+      <BarChartAmountOfFoldertypes />
     </el-col>
     <el-col :span="8">
-      <BarChartLargestFiles card-height="8rem" />
+      <BarChartLargestFiles />
     </el-col>
     <el-col :span="8">
-      <ChartAverageFolder card-height="8rem" />
+      <ChartAverageFolder />
     </el-col>
   </el-row>
 </template>
