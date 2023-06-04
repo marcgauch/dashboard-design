@@ -24,7 +24,7 @@ export class Item {
   readonly fullPath: string;
   constructor(
     readonly name: string,
-    readonly size: number,
+    readonly size: number = 0,
     readonly parent: Directory | null,
     readonly type: ItemType,
     readonly icon: ItemTypeIcon
