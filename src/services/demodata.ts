@@ -3861,5 +3861,4 @@ export default [
         "directories":  69,
         "files":  420
     }
-]
-;
+];
