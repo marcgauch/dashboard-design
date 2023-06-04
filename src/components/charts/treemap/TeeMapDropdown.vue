@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, nextTick } from 'vue';
 
 interface Tag {
   label: string;
@@ -51,7 +51,8 @@ const displayText = computed(() => {
     .join(', ')}`;
 });
 
-const changeSwitch = (which: string, state: boolean) => {
+const changeSwitch = async (which: string, state: boolean) => {
+  await nextTick();
   const tags = props.tags.map(({ type, active }) => {
     if (which === type) {
       return { type, active: state };
