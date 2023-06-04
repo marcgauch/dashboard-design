@@ -18,12 +18,12 @@ const data = reactive({
   datasets: [
     {
       label: 'current folder',
-      color: '#0000FF',
+      color: '#00dd9b',
       data: [[0], [0]],
     },
     {
       label: 'all folders',
-      color: '#00FF00',
+      color: '#ef2648',
       data: [[0], [0]],
     },
   ],
