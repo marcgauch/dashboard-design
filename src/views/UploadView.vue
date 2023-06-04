@@ -11,11 +11,12 @@
     </template>
   </el-upload>
   <el-alert
-    title="Privacy Notice: We respect your privacy. All uploaded data will not leave your browser. Our server will not see your data nor do we spy on how you use our tool."
+    title="Privacy Notice"
+    description="We respect your privacy. All uploaded data will not leave your browser. Our server will not see your data nor do we spy on how you use our tool."
     type="info"
     show-icon
-    close-text="Gotcha"
-    style="margin-top: 1rem"
+    :closable="false"
+    style="margin-top: 1rem; margin-bottom: 1rem"
   />
   Or use our <el-button @click="useDemoData" type="primary">Demo Data</el-button>
 </template>
