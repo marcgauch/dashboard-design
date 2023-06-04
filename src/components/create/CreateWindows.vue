@@ -1,23 +1,50 @@
 <template>
   <div>
-    <h2> Creating your own json file:</h2>
-    <p>You can utilize the Data Visualization and Analysis tool by importing your own JSON file. It is important to keep in mind that the content of the JSON file should only consist of file names, file types, and file sizes. Make sure to <b> exclude any personal information </b>  from the file names, such as birthdates, phone numbers, passport numbers, and similar sensitive data.</p> 
-   
-   <h2> Locate and open Powershell ISE</h2>
-   <p>Use the integrated search bar from windows and type in Powershell. Multiple options will be available. Choose Windows PowerShell ISE and open it in administrator mode.</p>
-   <P> The interface is spit into two sides: an editor side (<font style="color:darkgrey;">background white</font>) and the command line side (<font style="color: blue;">blue background</font>). </P>
+    <h2>Creating your own JSON file:</h2>
+    <p>
+      You can utilize the Data Visualization and Analysis tool by importing your own JSON file. It
+      is important to keep in mind that the content of the JSON file should only consist of file
+      names, file types, and file sizes.
+    </p>
+
+    <h2>Locate and open Powershell ISE</h2>
+    <p>
+      Use the integrated search bar from windows and type in Powershell. Multiple options will be
+      available. Choose Windows PowerShell ISE and open it in administrator mode.
+    </p>
+    <p>
+      The interface is spit into two sides: an editor side (
+      <span style="color: darkgrey"> background white </span>
+      ) and the command line side (
+      <span style="color: blue">blue background</span>
+      ).
+    </p>
 
     Please save the following code as <el-link type="primary" @click="download">tree.ps1</el-link>.
     <CopyText :text="powershellCode"></CopyText>
-   
-   <p> Drag and drop the downloaded poweshell file in the PowerShell ISE, on the editor side and press the play button (<font style="color: #0A8A0A;">green button</font>) from the available action buttons at the top of the UI. </p> 
-   Now you need to define the folder you want to scan. This is defined in the analyze path. Just copy and paste the analyze path (for example C:\Users\*YOUR USER NAME*\Downloads\) and press enter
 
-   <P> Next you have to define the target path were your JSON will be written (for example C:\Users\*YOUR USER NAME*\Downloads\json.json
- ). If your target folder is large, it will take a long time for the JSON to gemerate (so be patient if you choose a folder that is larger than 3 GB)  </P>
-    
-   <p> Now you can check if the file was created in the defined target path. Should this not be the case, you can at this point use the below code (just insert both the analyze and target path in the code and run it). </p> 
-    
+    <p>
+      Drag and drop the downloaded poweshell file in the PowerShell ISE, on the editor side and
+      press the play button (<span style="color: #0a8a0a">green button</span>) from the available
+      action buttons at the top of the UI.
+    </p>
+    Now you need to define the folder you want to scan. This is defined in the analyze path. Just
+    copy and paste the analyze path (for example C:\Users\*YOUR USER NAME*\Downloads\) and press
+    enter
+
+    <p>
+      Next you have to define the target path were your JSON will be written (for example
+      C:\Users\*YOUR USER NAME*\Downloads\json.json ). If your target folder is large, it will take
+      a long time for the JSON to gemerate (so be patient if you choose a folder that is larger than
+      3 GB)
+    </p>
+
+    <p>
+      Now you can check if the file was created in the defined target path. Should this not be the
+      case, you can at this point use the below code (just insert both the analyze and target path
+      in the code and run it).
+    </p>
+
     <pre>
       Do-Everything -analyzePath &lt;D:\irectory\to\analyze&gt; -reportFile &lt;P:\ath\to\tree.json&gt;
     </pre>
