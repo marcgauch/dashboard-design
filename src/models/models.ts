@@ -153,6 +153,7 @@ export class File extends Item {
         return ItemTypeIcon.LINK;
       */
       case 'flac':
+      case 'm4p':
       case 'mp3':
       case 'wav':
       case 'wma':
