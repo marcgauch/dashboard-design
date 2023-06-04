@@ -10,6 +10,13 @@
       </div>
     </template>
   </el-upload>
+  <el-alert
+    title="Privacy Notice: We respect your privacy. All uploaded data will not leave your browser. Our server will not see your data nor do we spy on how you use our tool."
+    type="info"
+    show-icon
+    close-text="Gotcha"
+    style="margin-top: 1rem"
+  />
   <el-divider />
   <el-card>
     Or use our <el-button @click="useDemoData" type="primary">Demo Data</el-button><br />
