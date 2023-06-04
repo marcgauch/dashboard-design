@@ -29,6 +29,7 @@ import { UploadFilled } from '@element-plus/icons-vue';
 import { ReportFileParser } from '@/services/ReportFileParser';
 import { useTreeStore } from '@/stores/treeStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { ElNotification } from 'element-plus';
 import DEMODATA from '@/services/demodata';
 
 const treeStore = useTreeStore();
@@ -36,6 +37,7 @@ const settingsStore = useSettingsStore();
 
 const useDemoData = () => {
   treeStore.reportFile = ReportFileParser.parse(JSON.stringify(DEMODATA), 'Demodata.json');
+  showUploadedNotification();
 };
 
 const loadDatasetFromStorage = () => {
@@ -58,9 +60,18 @@ const upload = (file: any) => {
         console.log("Can't add your data to store. Probably it's just too big");
       }
     }
+    showUploadedNotification();
   };
 
   FR.readAsText(raw);
+};
+
+const showUploadedNotification = () => {
+  ElNotification({
+    title: 'Data Uploaded',
+    message: 'Switch to the Analyze tab to explore your data',
+    type: 'success',
+  });
 };
 
 if (settingsStore.DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE) {
