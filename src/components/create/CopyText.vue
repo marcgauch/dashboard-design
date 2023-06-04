@@ -32,7 +32,7 @@ const copyToClipboard = () => {
 .copy-button {
   position: absolute;
   top: 0.25rem;
-  right: 0.5rem;
+  right: 1.5rem;
 }
 
 pre {
