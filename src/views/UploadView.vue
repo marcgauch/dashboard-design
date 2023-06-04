@@ -12,6 +12,7 @@
   </el-upload>
   <el-divider />
   <el-card>
+    Or use our <el-button @click="useDemoData" type="primary">Demo Data</el-button><br />
     <el-checkbox v-model="settingsStore.DEBUG_SAVE_UPLOADED_DATA_IN_LOCAL_STORAGE">
       DEBUG: Save and restore uploaded data automatically
     </el-checkbox>
@@ -28,9 +29,14 @@ import { UploadFilled } from '@element-plus/icons-vue';
 import { ReportFileParser } from '@/services/ReportFileParser';
 import { useTreeStore } from '@/stores/treeStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import DEMODATA from '@/services/demodata';
 
 const treeStore = useTreeStore();
 const settingsStore = useSettingsStore();
+
+const useDemoData = () => {
+  treeStore.reportFile = ReportFileParser.parse(JSON.stringify(DEMODATA), 'Demodata.json');
+};
 
 const loadDatasetFromStorage = () => {
   const DATA = localStorage.getItem('DATA');
