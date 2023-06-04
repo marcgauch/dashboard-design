@@ -3,10 +3,10 @@ import { useSettingsStore } from '@/stores/settingsStore';
 
 export enum UNIT {
   B,
-  KB,
-  MB,
-  GB,
-  TB,
+  KiB,
+  MiB,
+  GiB,
+  TiB,
 }
 // keep this in sync with the amount of entries in UNTIS
 const UNIT_LENGTH = 5;
@@ -86,34 +86,34 @@ export class UTIL {
     const settingsStore = useSettingsStore();
     const factor = settingsStore.TREE_ITEM_SIZE.STEP_SIZE;
     if (startUnit === UNIT.B) {
-      if (endUnit === UNIT.KB) return size / factor;
-      if (endUnit === UNIT.MB) return size / factor / factor;
-      if (endUnit === UNIT.GB) return size / factor / factor / factor;
-      if (endUnit === UNIT.TB) return size / factor / factor / factor / factor;
+      if (endUnit === UNIT.KiB) return size / factor;
+      if (endUnit === UNIT.MiB) return size / factor / factor;
+      if (endUnit === UNIT.GiB) return size / factor / factor / factor;
+      if (endUnit === UNIT.TiB) return size / factor / factor / factor / factor;
     }
-    if (startUnit === UNIT.KB) {
+    if (startUnit === UNIT.KiB) {
       if (endUnit === UNIT.B) return size * factor;
-      if (endUnit === UNIT.MB) return size / factor;
-      if (endUnit === UNIT.GB) return size / factor / factor;
-      if (endUnit === UNIT.TB) return size / factor / factor / factor;
+      if (endUnit === UNIT.MiB) return size / factor;
+      if (endUnit === UNIT.GiB) return size / factor / factor;
+      if (endUnit === UNIT.TiB) return size / factor / factor / factor;
     }
-    if (startUnit === UNIT.MB) {
+    if (startUnit === UNIT.MiB) {
       if (endUnit === UNIT.B) return size * factor * factor;
-      if (endUnit === UNIT.KB) return size * factor;
-      if (endUnit === UNIT.GB) return size / factor;
-      if (endUnit === UNIT.TB) return size / factor / factor;
+      if (endUnit === UNIT.KiB) return size * factor;
+      if (endUnit === UNIT.GiB) return size / factor;
+      if (endUnit === UNIT.TiB) return size / factor / factor;
     }
-    if (startUnit === UNIT.GB) {
+    if (startUnit === UNIT.GiB) {
       if (endUnit === UNIT.B) return size * factor * factor * factor;
-      if (endUnit === UNIT.KB) return size * factor * factor;
-      if (endUnit === UNIT.MB) return size * factor;
-      if (endUnit === UNIT.TB) return size / factor;
+      if (endUnit === UNIT.KiB) return size * factor * factor;
+      if (endUnit === UNIT.MiB) return size * factor;
+      if (endUnit === UNIT.TiB) return size / factor;
     }
-    if (startUnit === UNIT.TB) {
+    if (startUnit === UNIT.TiB) {
       if (endUnit === UNIT.B) return size * factor * factor * factor * factor;
-      if (endUnit === UNIT.KB) return size * factor * factor * factor;
-      if (endUnit === UNIT.MB) return size * factor * factor;
-      if (endUnit === UNIT.GB) return size * factor;
+      if (endUnit === UNIT.KiB) return size * factor * factor * factor;
+      if (endUnit === UNIT.MiB) return size * factor * factor;
+      if (endUnit === UNIT.GiB) return size * factor;
     }
     throw `UTIL.convertSize(${size}, UNIT.${UNIT[startUnit]}, UNIT.${UNIT[endUnit]}) threw this error`;
   };
